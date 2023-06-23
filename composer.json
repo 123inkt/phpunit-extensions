@@ -1,28 +1,35 @@
 {
-    "name": "digitalrevolution/skeleton",
-    "description": "Digital Revolution skeleton package",
+    "name": "digitalrevolution/phpunit-extensions",
+    "description": "A library for phpunit utility and support classes",
     "type": "library",
     "license": "MIT",
     "minimum-stability": "stable",
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "digitalrevolution/php-codesniffer-baseline": true
         }
     },
     "require": {
-        "php": ">=8.0"
+        "php": "^8.1",
+        "phpunit/phpunit": "^9.5.24 || ^10.0"
     },
     "require-dev": {
-        "digitalrevolution/phpunit-file-coverage-inspection": "^v2.0.0",
+        "digitalrevolution/phpunit-file-coverage-inspection": "^2.0",
+        "phpmd/phpmd": "^2.12",
+        "phpstan/extension-installer": "^1.2",
+        "phpstan/phpstan": "^1.9.1",
+        "phpstan/phpstan-phpunit": "^1.2.2",
+        "phpstan/phpstan-strict-rules": "^1.5",
+        "phpstan/phpstan-symfony": "^1.2.16",
         "roave/security-advisories": "dev-latest",
-        "squizlabs/php_codesniffer": "^3.6",
-        "phpmd/phpmd": "@stable",
-        "phpunit/phpunit": "^9.5",
-        "phpstan/phpstan": "^1.4",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "phpstan/phpstan-strict-rules": "^1.1",
-        "phpstan/extension-installer": "^1.1"
+        "squizlabs/php_codesniffer": "^3.7",
+        "symfony/form": "^6.0",
+        "symfony/framework-bundle": "^6.0",
+        "symfony/security-core": "^6.0",
+        "symfony/twig-bundle": "^6.0",
+        "symfony/validator": "^6.0"
     },
     "scripts": {
         "check": ["@check:phpstan", "@check:phpmd", "@check:phpcs"],
@@ -34,5 +41,32 @@
         "test": "phpunit",
         "test:integration": "phpunit --testsuite integration",
         "test:unit": "phpunit --testsuite unit"
+    },
+    "suggest": {
+        "symfony/form": "Symfony form component is required for testing the controller createForm methods",
+        "symfony/framework-bundle": "Symfony framework bundle is required for the AbstractControllerTestCase",
+        "symfony/security-core": "Symfony security component is required for testing authentication/authorization related methods",
+        "symfony/twig-bundle": "Symfony twig bundle is required to test rendering templates/forms"
+    },
+    "conflict": {
+        "symfony/form": "<6.0",
+        "symfony/framework-bundle": "<6.0",
+        "symfony/security-core": "<6.0",
+        "symfony/twig-bundle": "<6.0"
+    },
+    "autoload": {
+        "files": [
+            "src/Mock/consecutive.php"
+        ],
+        "psr-4": {
+            "DR\\PHPUnitExtensions\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DR\\PHPUnitExtensions\\Tests\\": "tests/",
+            "DR\\PHPUnitExtensions\\Tests\\Integration\\": "tests/Integration/",
+            "DR\\PHPUnitExtensions\\Tests\\Unit\\": "tests/Unit/"
+        }
     }
 }
