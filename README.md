@@ -10,10 +10,11 @@ Utility classes to make unit testing life easier.
 ### withConsecutive
 In PHPUnit 10 withConsecutive method was removed. To still be able to migrate existing codebases a replacement method:
 
-Before:
+PHPUnit <= 9.5:
 ```php
 $mock->method('myMethod')->withConsecutive([123, 'foobar'], [456]);
 ```
+PHPUnit >= 9.6:
 ```php
 $mock->method('myMethod')->with(...consecutive([123, 'foobar'], [456]));
 ```
