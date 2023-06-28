@@ -59,7 +59,7 @@ class ConsecutiveTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('consecutive() is expecting at least 1 or more arguments for invocation');
-        consecutive([123], []);
+        consecutive([], []);
     }
 
     public function testConsecutiveInvokeMoreThanExpected(): void
