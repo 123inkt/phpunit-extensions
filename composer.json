@@ -39,7 +39,6 @@
         "fix:phpcbf": "phpcbf src tests",
         "test": "phpunit",
         "test:integration": "phpunit --testsuite integration",
-        "test:unit": "phpunit --testsuite unit"
     },
     "suggest": {
         "symfony/form": "Symfony form component is required for testing the controller createForm methods",
