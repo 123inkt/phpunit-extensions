@@ -7,8 +7,7 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "phpstan/extension-installer": true,
-            "digitalrevolution/php-codesniffer-baseline": true
+            "phpstan/extension-installer": true
         }
     },
     "require": {
