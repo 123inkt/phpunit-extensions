@@ -39,6 +39,7 @@ function consecutive(array $firstInvocationArguments, array $secondInvocationArg
     }
 
     $callbacks = [];
+    /** @var array<int, mixed> $arguments */
     foreach ($argumentsByIndex as $arguments) {
         for ($i = 0; $i < $maxArguments; $i++) {
             if (isset($arguments[$i]) === false) {
