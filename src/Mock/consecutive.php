@@ -6,6 +6,7 @@ namespace DR\PHPUnitExtensions\Mock;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\Constraint\Callback;
+use PHPUnit\Framework\Constraint\IsAnything;
 
 /**
  * @param array<mixed> $firstInvocationArguments A list of arguments for each invocation that will be asserted against.
@@ -23,20 +24,27 @@ function consecutive(array $firstInvocationArguments, array $secondInvocationArg
     array_unshift($expectedArgumentList, $secondInvocationArguments);
     array_unshift($expectedArgumentList, $firstInvocationArguments);
 
+    // count arguments
+    $maxArguments = (int)max(array_map(static fn($args) => count($args), $expectedArgumentList));
+    if ($maxArguments === 0) {
+        throw new InvalidArgumentException('consecutive() is expecting at least 1 or more arguments for invocation');
+    }
+
     // reorganize arguments per argument index
     $argumentsByIndex = [];
     foreach ($expectedArgumentList as $invocation => $expectedArguments) {
-        if (count($expectedArguments) === 0) {
-            throw new InvalidArgumentException('consecutive() is expecting at least 1 or more arguments for invocation #' . ((int)$invocation + 1));
-        }
-
         foreach ($expectedArguments as $index => $argument) {
-            $argumentsByIndex[$index][] = $argument;
+            $argumentsByIndex[$index][$invocation] = $argument;
         }
     }
 
     $callbacks = [];
     foreach ($argumentsByIndex as $arguments) {
+        for ($i = 0; $i < $maxArguments; $i++) {
+            if (isset($arguments[$i]) === false) {
+                $arguments[$i] = new IsAnything();
+            }
+        }
         $constraint  = new ConsecutiveParameters($arguments);
         $callbacks[] = new Callback(static fn($actualArgument): bool => $constraint->evaluate($actualArgument));
     }

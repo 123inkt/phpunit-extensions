@@ -36,11 +36,23 @@ class ConsecutiveTest extends TestCase
         $mock = $this->createMock(MockInterface::class);
         $mock->expects(self::exactly(2))
             ->method('myMethodB')
-            ->with(...consecutive([123, 'bram'], [456, 'frank']));
+            ->with(...consecutive([123, 'Sherlock'], [456, 'Watson']));
 
         $consecutiveMock = new ConsecutiveMock($mock);
-        $consecutiveMock->myMethodB(123, 'bram');
-        $consecutiveMock->myMethodB(456, 'frank');
+        $consecutiveMock->myMethodB(123, 'Sherlock');
+        $consecutiveMock->myMethodB(456, 'Watson');
+    }
+
+    public function testConsecutiveUnevenArguments(): void
+    {
+        $mock = $this->createMock(MockInterface::class);
+        $mock->expects(self::exactly(2))
+            ->method('myMethodB')
+            ->with(...consecutive([123], [456, 'Watson']));
+
+        $consecutiveMock = new ConsecutiveMock($mock);
+        $consecutiveMock->myMethodB(123, 'Sherlock');
+        $consecutiveMock->myMethodB(456, 'Watson');
     }
 
     public function testConsecutiveMinimumOfOneArguments(): void
