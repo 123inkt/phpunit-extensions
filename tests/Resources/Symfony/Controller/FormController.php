@@ -23,6 +23,6 @@ class FormController extends AbstractController
 
         $form->get('name');
 
-        return $this->render('form.html.twig', ['form' => $form]);
+        return $this->render('form.html.twig', ['foo' => 'bar']);
     }
 }
