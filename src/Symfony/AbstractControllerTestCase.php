@@ -79,6 +79,8 @@ abstract class AbstractControllerTestCase extends TestCase
     public function expectAddFlash(string $type, mixed $message): void
     {
         $flashBag = $this->createMock(FlashBagInterface::class);
+        $flashBag->method('getName')->willReturn('name');
+        $flashBag->method('getStorageKey')->willReturn('storageKey');
         $request  = new Request();
         $request->setSession(new Session(new MockArraySessionStorage(), null, $flashBag));
         $requestStack = new RequestStack();
