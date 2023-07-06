@@ -32,15 +32,16 @@ class FormControllerTest extends AbstractControllerTestCase
 
     public function testInvokeInvalid(): void
     {
+        $formView = new FormView();
         $request = new Request();
         $this->expectCreateForm(FormType::class)
             ->handleRequest($request)
             ->isSubmittedWillReturn(true)
             ->isValidWillReturn(false)
-            ->createViewWillReturn(new FormView())
+            ->createViewWillReturn($formView)
             ->getWillReturn(['name' => 'foobar']);
 
-        $this->expectRender('form.html.twig', ['form' => new FormView()], 'FormView');
+        $this->expectRender('form.html.twig', ['form' => $formView], 'FormView');
 
         static::assertSame('FormView', ($this->controller)($request)->getContent());
     }
