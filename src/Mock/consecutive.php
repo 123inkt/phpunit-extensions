@@ -8,7 +8,9 @@ use InvalidArgumentException;
 use PHPUnit\Framework\Constraint\Callback;
 use PHPUnit\Framework\Constraint\IsAnything;
 
+// @codeCoverageIgnoreStart
 if (function_exists('\DR\PHPUnitExtensions\Mock\consecutive') === false) {
+    // @codeCoverageIgnoreEnd
     /**
      * @param array<mixed> $firstInvocationArguments A list of arguments for each invocation that will be asserted against.
      *                                               Will fail on: too many invocations or if the argument doesn't match for each invocation.
