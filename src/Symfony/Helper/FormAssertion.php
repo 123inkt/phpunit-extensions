@@ -17,9 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 use function PHPUnit\Framework\atLeastOnce;
 
-/**
- * @internal
- */
 class FormAssertion
 {
     public function __construct(public readonly FormInterface&MockObject $form, private readonly TestCase $testCase)
