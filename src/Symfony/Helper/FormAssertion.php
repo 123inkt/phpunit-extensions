@@ -19,6 +19,11 @@ use function PHPUnit\Framework\atLeastOnce;
 
 class FormAssertion
 {
+    /**
+     * @internal Instance should not be made directly, use AbstractControllerTestCase::expectCreateForm
+     *
+     * @see AbstractControllerTestCase::expectCreateForm
+     */
     public function __construct(public readonly FormInterface&MockObject $form, private readonly TestCase $testCase)
     {
     }
