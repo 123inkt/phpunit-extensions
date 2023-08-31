@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DR\PHPUnitExtensions\Symfony;
 
+use DR\PHPUnitExtensions\Symfony\Helper\ConstraintViolationBuilderAssertion;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -102,6 +103,8 @@ abstract class AbstractConstraintValidatorTestCase extends TestCase
      * e.g. $this->context->buildViolation($constraint->message)->atPath('price')->setInvalidValue($price)->addViolation();
      *
      * @param array<int|string, mixed> $parameters
+     *
+     * @deprecated use ::expectBuildViolation
      */
     protected function expectViolationViaBuilder(
         string $message,
@@ -117,5 +120,32 @@ abstract class AbstractConstraintValidatorTestCase extends TestCase
             $this->violationBuilder->expects(static::once())->method('setInvalidValue')->with($invalidValue)->willReturnSelf();
         }
         $this->violationBuilder->expects(static::once())->method('addViolation');
+    }
+
+    /**
+     * Expect a violation to be created using the violation builder.
+     * Example:
+     * <code>
+     *     $this->context
+     *          ->buildViolation($constraint->message)
+     *          ->atPath('price')
+     *          ->setInvalidValue(5.0)
+     *          ->addViolation();
+     * </code>
+     * Usage:
+     * <code>
+     *     $this->expectBuildViolation('message')
+     *          ->expectAtPath('price')
+     *          ->expectSetInvalidValue(5.0)
+     *          ->expectAddViolation();
+     * </code>
+     *
+     * @param array<int|string, mixed> $parameters
+     */
+    protected function expectBuildViolation(string $message, array $parameters = []): ConstraintViolationBuilderAssertion
+    {
+        $this->executionContext->expects(static::once())->method('buildViolation')->with($message, $parameters)->willReturn($this->violationBuilder);
+
+        return new ConstraintViolationBuilderAssertion($this->violationBuilder);
     }
 }
