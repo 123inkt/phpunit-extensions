@@ -10,9 +10,11 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class TestConstraintValidator extends ConstraintValidator
 {
-    public const VALUE_ADD_VIOLATION           = 'invalidAddViolation';
-    public const VALUE_BUILD_VIOLATION         = 'invalidBuildViolation';
-    public const VALUE_BUILD_VIOLATION_AT_PATH = 'invalidBuildViolationAtPath';
+    public const VALUE_ADD_VIOLATION              = 'invalidAddViolation';
+    public const VALUE_BUILD_VIOLATION            = 'invalidBuildViolation';
+    public const VALUE_BUILD_VIOLATION_AT_PATH    = 'invalidBuildViolationAtPath';
+    public const VALUE_BUILD_VIOLATION_PARAMETERS = 'invalidBuildViolationParameters';
+    public const VALUE_BUILD_VIOLATION_COMPLETE   = 'invalidBuildViolationComplete';
 
     public function validate(mixed $value, Constraint $constraint): void
     {
@@ -25,6 +27,22 @@ class TestConstraintValidator extends ConstraintValidator
             $this->context->buildViolation($constraint->message)->addViolation();
         } elseif ($value === self::VALUE_BUILD_VIOLATION_AT_PATH) {
             $this->context->buildViolation($constraint->message)->atPath('foo')->setInvalidValue('bar')->addViolation();
+        } elseif ($value === self::VALUE_BUILD_VIOLATION_PARAMETERS) {
+            $this->context->buildViolation($constraint->message)
+                ->setParameter('parameter1', 'foo')
+                ->setParameter('parameter2', 'bar')
+                ->addViolation();
+        } elseif ($value === self::VALUE_BUILD_VIOLATION_COMPLETE) {
+            $this->context->buildViolation($constraint->message, ['param' => 'eter'])
+                ->setCode('code')
+                ->setPlural(2)
+                ->setCause('cause')
+                ->setTranslationDomain('domain')
+                ->setParameter('set', 'parameter')
+                ->setParameters(['parameter2' => 'two'])
+                ->atPath('foo')
+                ->setInvalidValue('bar')
+                ->addViolation();
         }
     }
 }

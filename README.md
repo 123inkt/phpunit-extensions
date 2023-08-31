@@ -53,6 +53,54 @@ class MyControllerTest extends AbstractControllerTestCase
 - `expectForward`
 - `expectRender`
 
+### Symfony ConstraintValidator tests
+
+TestCase for testing Symfony ConstraintValidators.
+
+```php
+use DR\PHPUnitExtensions\Symfony\AbstractConstraintValidatorTestCase;
+
+class MyConstraintValidatorTest extends AbstractConstraintValidatorTestCase 
+{    
+    public function testValidate(): void
+    {
+        $this->expectBuildViolation($constraint->message, ['parameter' => 123])
+            ->expectSetCode(789)
+            ->expectAtPath('path')
+            ->expectAddViolation();
+
+        $this->validator->validate(123, $this->constraint);
+    }
+    
+    protected function getValidator(): ConstraintValidator
+    {
+        return new MyConstraintValidator();
+    }
+
+    protected function getConstraint(): Constraint
+    {
+        return new MyConstraint();
+    }
+}
+```
+
+**Methods**
+- `assertHandlesIncorrectConstraintType`
+- `expectNoViolations`
+- `expectBuildViolation(): ConstraintViolationBuilderAssertion`
+
+**ConstraintViolationBuilderAssertion**
+- `expectSetInvalidValue`
+- `expectSetPlural`
+- `expectSetCode`
+- `expectSetCause`
+- `expectSetTranslationDomain`
+- `expectSetParameters`
+- `expectSetParameter`
+- `expectSetParameterWithConsecutive`
+- `expectAtPath`
+- `expectAddViolation`
+
 ## About us
 
 At 123inkt (Part of Digital Revolution B.V.), every day more than 50 development professionals are working on improving our internal ERP 

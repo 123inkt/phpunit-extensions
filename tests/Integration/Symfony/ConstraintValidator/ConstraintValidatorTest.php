@@ -14,6 +14,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 /**
  * @extends AbstractConstraintValidatorTestCase<TestConstraintValidator, TestConstraint>
  * @covers \DR\PHPUnitExtensions\Symfony\AbstractConstraintValidatorTestCase
+ * @covers \DR\PHPUnitExtensions\Symfony\Helper\ConstraintViolationBuilderAssertion
  */
 class ConstraintValidatorTest extends AbstractConstraintValidatorTestCase
 {
@@ -53,15 +54,38 @@ class ConstraintValidatorTest extends AbstractConstraintValidatorTestCase
         $this->validator->validate(TestConstraintValidator::VALUE_ADD_VIOLATION, $this->constraint);
     }
 
-    public function testBuildViolation(): void
+    public function testBuildViolationViaBuilder(): void
     {
         $this->expectViolationViaBuilder($this->constraint->message);
         $this->validator->validate(TestConstraintValidator::VALUE_BUILD_VIOLATION, $this->constraint);
     }
 
-    public function testBuildViolationAtPath(): void
+    public function testBuildViolationViaBuilderAtPath(): void
     {
         $this->expectViolationViaBuilder($this->constraint->message, atPath: 'foo', invalidValue: 'bar');
         $this->validator->validate(TestConstraintValidator::VALUE_BUILD_VIOLATION_AT_PATH, $this->constraint);
+    }
+
+    public function testBuildViolationConsecutiveParameters(): void
+    {
+        $this->expectBuildViolation($this->constraint->message)
+            ->expectSetParameterWithConsecutive(['parameter1', 'foo'], ['parameter2', 'bar'])
+            ->expectAddViolation();
+        $this->validator->validate(TestConstraintValidator::VALUE_BUILD_VIOLATION_PARAMETERS, $this->constraint);
+    }
+
+    public function testBuildViolation(): void
+    {
+        $this->expectBuildViolation($this->constraint->message, ['param' => 'eter'])
+            ->expectSetCode('code')
+            ->expectSetPlural(2)
+            ->expectSetCause('cause')
+            ->expectSetTranslationDomain('domain')
+            ->expectSetParameter('set', 'parameter')
+            ->expectSetParameters(['parameter2' => 'two'])
+            ->expectAtPath('foo')
+            ->expectSetInvalidValue('bar')
+            ->expectAddViolation();
+        $this->validator->validate(TestConstraintValidator::VALUE_BUILD_VIOLATION_COMPLETE, $this->constraint);
     }
 }
