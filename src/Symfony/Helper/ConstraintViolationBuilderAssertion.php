@@ -75,11 +75,11 @@ class ConstraintViolationBuilderAssertion
     }
 
     /**
-     * @param array<int, mixed> $parameters
+     * @param array<int, mixed> $arguments
      */
-    public function expectSetParameterWithConsecutive(array ...$parameters): self
+    public function expectSetParameterWithConsecutive(array ...$arguments): self
     {
-        $this->violationBuilder->expects(atLeastOnce())->method('setParameter')->with(...consecutive(...$parameters))->willReturnSelf();
+        $this->violationBuilder->expects(atLeastOnce())->method('setParameter')->with(...consecutive(...$arguments))->willReturnSelf();
 
         return $this;
     }
