@@ -55,6 +55,8 @@ class MyControllerTest extends AbstractControllerTestCase
 
 ### Symfony ConstraintValidator tests
 
+TestCase for testing Symfony ConstraintValidators.
+
 ```php
 use DR\PHPUnitExtensions\Symfony\AbstractConstraintValidatorTestCase;
 
@@ -83,6 +85,11 @@ class MyConstraintValidatorTest extends AbstractConstraintValidatorTestCase
 ```
 
 **Methods**
+- `assertHandlesIncorrectConstraintType`
+- `expectNoViolations`
+- `expectBuildViolation(): ConstraintViolationBuilderAssertion`
+
+**ConstraintViolationBuilderAssertion**
 - `expectSetInvalidValue`
 - `expectSetPlural`
 - `expectSetCode`
