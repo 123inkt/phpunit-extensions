@@ -32,6 +32,13 @@ class ConstraintViolationBuilderAssertion
         return $this;
     }
 
+    public function expectSetCode(string $code): self
+    {
+        $this->violationBuilder->expects(atLeastOnce())->method('setCode')->with($code)->willReturnSelf();
+
+        return $this;
+    }
+
     public function expectSetCause(mixed $cause): self
     {
         $this->violationBuilder->expects(atLeastOnce())->method('setCause')->with($cause)->willReturnSelf();
@@ -64,9 +71,9 @@ class ConstraintViolationBuilderAssertion
     }
 
     /**
-     * @param array<int, array<string, mixed>> $parameters
+     * @param array<int, mixed> $parameters
      */
-    public function expectSetParameterWithConsecutive(array $parameters): self
+    public function expectSetParameterWithConsecutive(array ...$parameters): self
     {
         $this->violationBuilder->expects(atLeastOnce())->method('setParameter')->with(...consecutive(...$parameters))->willReturnSelf();
 
