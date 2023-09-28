@@ -118,9 +118,9 @@ abstract class AbstractControllerTestCase extends TestCase
     }
 
     /**
-     * @param class-string $controller
+     * @param class-string         $controller
      * @param array<string, mixed> $path
-     * @param string[]     $query
+     * @param array<string, mixed> $query
      */
     public function expectForward(string $controller, array $path = [], array $query = []): Response&MockObject
     {
