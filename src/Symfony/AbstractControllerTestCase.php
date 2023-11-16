@@ -26,6 +26,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Twig\Environment;
+use function DR\PHPUnitExtensions\Mock\consecutive;
 
 /**
  * @template T as AbstractController&callable
@@ -81,7 +82,7 @@ abstract class AbstractControllerTestCase extends TestCase
         $flashBag = $this->createMock(FlashBagInterface::class);
         $flashBag->method('getName')->willReturn('name');
         $flashBag->method('getStorageKey')->willReturn('storageKey');
-        $request  = new Request();
+        $request = new Request();
         $request->setSession(new Session(new MockArraySessionStorage(), null, $flashBag));
         $requestStack = new RequestStack();
         $requestStack->push($request);
@@ -100,11 +101,23 @@ abstract class AbstractControllerTestCase extends TestCase
         string $route,
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
-    ): InvocationMocker {
+    ): InvocationMocker
+    {
         $router = $this->createMock(RouterInterface::class);
         $this->container->set('router', $router);
 
         return $router->expects(self::once())->method('generate')->with($route, $parameters, $referenceType);
+    }
+
+    /**
+     * @return InvocationMocker<RouterInterface>
+     */
+    public function expectGenerateUrlWithConsecutive(array ...$arguments): InvocationMocker
+    {
+        $router = $this->createMock(RouterInterface::class);
+        $this->container->set('router', $router);
+
+        return $router->expects(self::atLeastOnce())->method('generate')->with(...consecutive(...$arguments));
     }
 
     /**
