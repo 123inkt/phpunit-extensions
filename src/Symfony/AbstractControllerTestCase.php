@@ -101,8 +101,7 @@ abstract class AbstractControllerTestCase extends TestCase
         string $route,
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
-    ): InvocationMocker
-    {
+    ): InvocationMocker {
         $router = $this->createMock(RouterInterface::class);
         $this->container->set('router', $router);
 
