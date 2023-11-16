@@ -10,18 +10,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GenerateUrlController extends AbstractController
 {
-    public function singleGenerate(): Response
+    public function __invoke(bool $multi = false): Response
     {
-        return new Response($this->generateUrl("route_name"));
-    }
+        if ($multi) {
+            return new JsonResponse(
+                ["first" => $this->generateUrl("first_route"), "second" => $this->generateUrl("second_route")]
+            );
+        }
 
-    public function multiGenerate(): JsonResponse
-    {
-        return new JsonResponse(
-            [
-                "first" => $this->generateUrl("first_route"),
-                "second" => $this->generateUrl("second_route")
-            ]
-        );
+        return new JsonResponse(["url" => $this->generateUrl("first_route")]);
     }
 }

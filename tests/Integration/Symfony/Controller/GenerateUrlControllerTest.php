@@ -15,14 +15,14 @@ class GenerateUrlControllerTest extends AbstractControllerTestCase
 {
     public function testSingleGenerate(): void
     {
-        $this->expectGenerateUrl("route_name")->willReturn('url');
-        static::assertSame('url', $this->controller->singleGenerate()->getContent());
+        $this->expectGenerateUrl("first_route")->willReturn('first_url');
+        static::assertSame('{"url":"first_url"}', ($this->controller)()->getContent());
     }
 
     public function testMultiGenerate(): void
     {
         $this->expectGenerateUrlWithConsecutive(["first_route"], ["second_route"])->willReturnOnConsecutiveCalls('first_url', 'second_url');
-        static::assertSame('{"first":"first_url","second":"second_url"}', $this->controller->multiGenerate()->getContent());
+        static::assertSame('{"first":"first_url","second":"second_url"}', ($this->controller)(true)->getContent());
     }
 
     public function getController(): GenerateUrlController
