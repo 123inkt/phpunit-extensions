@@ -110,6 +110,7 @@ abstract class AbstractControllerTestCase extends TestCase
     }
 
     /**
+     * @param array<int, mixed> $arguments
      * @return InvocationMocker<RouterInterface>
      */
     public function expectGenerateUrlWithConsecutive(array ...$arguments): InvocationMocker
