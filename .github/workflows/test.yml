@@ -11,12 +11,15 @@ permissions:
 
 jobs:
   test:
-    name: PHP ${{ matrix.php-versions }} Test ${{ matrix.composer-flags }}
+    name: PHP ${{ matrix.php-versions }} - Symfony ${{ matrix.symfony }} - Test ${{ matrix.composer-flags }}
+    env:
+      SYMFONY_REQUIRE: ${{ matrix.symfony }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: ['8.1', '8.2']
-        composer-flags: ['', '--prefer-lowest']
+        php-versions: [ '8.1', '8.2', '8.3' ]
+        symfony: [ '6.2.*', '7.0.*' ]
+        composer-flags: [ '', '--prefer-lowest' ]
     steps:
       - uses: actions/checkout@v4
 
