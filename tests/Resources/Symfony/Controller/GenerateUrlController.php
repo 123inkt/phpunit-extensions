@@ -6,11 +6,10 @@ namespace DR\PHPUnitExtensions\Tests\Resources\Symfony\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 class GenerateUrlController extends AbstractController
 {
-    public function __invoke(bool $multi = false): Response
+    public function __invoke(bool $multi = false): JsonResponse
     {
         if ($multi) {
             return new JsonResponse(
