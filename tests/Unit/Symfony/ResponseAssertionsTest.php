@@ -6,11 +6,12 @@ namespace DR\PHPUnitExtensions\Tests\Unit\Symfony;
 
 use DR\PHPUnitExtensions\Symfony\ResponseAssertions;
 use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-#[CoversClass(ResponseAssertions::class)]
+/**
+ * @covers \DR\PHPUnitExtensions\Symfony\ResponseAssertions
+ */
 class ResponseAssertionsTest extends TestCase
 {
     use ResponseAssertions;
