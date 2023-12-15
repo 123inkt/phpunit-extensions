@@ -43,7 +43,7 @@ abstract class AbstractControllerTestCase extends TestCase
      */
     abstract public function getController(): AbstractController;
 
-    public function expectGetUser(?UserInterface $user): void
+    protected function expectGetUser(?UserInterface $user): void
     {
         $token = $this->createMock(TokenInterface::class);
         $token->expects(self::atLeastOnce())->method('getUser')->willReturn($user);
@@ -54,7 +54,7 @@ abstract class AbstractControllerTestCase extends TestCase
         $this->container->set('security.token_storage', $storage);
     }
 
-    public function expectDenyAccessUnlessGranted(string $attribute, mixed $subject = null, bool $granted = true): void
+    protected function expectDenyAccessUnlessGranted(string $attribute, mixed $subject = null, bool $granted = true): void
     {
         $checker = $this->createMock(AuthorizationCheckerInterface::class);
         $checker->expects(self::atLeastOnce())->method('isGranted')->with($attribute, $subject)->willReturn($granted);
@@ -65,7 +65,7 @@ abstract class AbstractControllerTestCase extends TestCase
     /**
      * @param array<string, int|string|object|object[]|null> $options
      */
-    public function expectCreateForm(string $type, mixed $data = null, array $options = []): FormAssertion
+    protected function expectCreateForm(string $type, mixed $data = null, array $options = []): FormAssertion
     {
         $form = $this->createMock(FormInterface::class);
 
@@ -77,7 +77,7 @@ abstract class AbstractControllerTestCase extends TestCase
         return new FormAssertion($form, $this);
     }
 
-    public function expectAddFlash(string $type, mixed $message): void
+    protected function expectAddFlash(string $type, mixed $message): void
     {
         $flashBag = $this->createMock(FlashBagInterface::class);
         $flashBag->method('getName')->willReturn('name');
@@ -97,7 +97,7 @@ abstract class AbstractControllerTestCase extends TestCase
      *
      * @return InvocationMocker<RouterInterface>
      */
-    public function expectGenerateUrl(
+    protected function expectGenerateUrl(
         string $route,
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
@@ -112,7 +112,7 @@ abstract class AbstractControllerTestCase extends TestCase
      * @param array<int, mixed> $arguments
      * @return InvocationMocker<RouterInterface>
      */
-    public function expectGenerateUrlWithConsecutive(array ...$arguments): InvocationMocker
+    protected function expectGenerateUrlWithConsecutive(array ...$arguments): InvocationMocker
     {
         $router = $this->createMock(RouterInterface::class);
         $this->container->set('router', $router);
@@ -125,7 +125,7 @@ abstract class AbstractControllerTestCase extends TestCase
      *
      * @return InvocationMocker<RouterInterface>
      */
-    public function expectRedirectToRoute(string $route, array $parameters = [], string $redirectTo = 'redirect'): InvocationMocker
+    protected function expectRedirectToRoute(string $route, array $parameters = [], string $redirectTo = 'redirect'): InvocationMocker
     {
         return $this->expectGenerateUrl($route, $parameters)->willReturn($redirectTo);
     }
@@ -135,7 +135,7 @@ abstract class AbstractControllerTestCase extends TestCase
      * @param array<string, mixed> $path
      * @param array<string, mixed> $query
      */
-    public function expectForward(string $controller, array $path = [], array $query = []): Response&MockObject
+    protected function expectForward(string $controller, array $path = [], array $query = []): Response&MockObject
     {
         $path['_controller'] = $controller;
 
@@ -158,7 +158,7 @@ abstract class AbstractControllerTestCase extends TestCase
     /**
      * @param mixed[] $context
      */
-    public function expectRender(string $name, array $context = [], string $response = ''): void
+    protected function expectRender(string $name, array $context = [], string $response = ''): void
     {
         $twig = $this->createMock(Environment::class);
         $this->container->set('twig', $twig);
