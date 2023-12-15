@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace DR\PHPUnitExtensions\Symfony;
 
 use PHPUnit\Framework\Assert;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 trait ResponseAssertions
 {
-    protected static function assertJsonResponse(array $expected, Response $response): void
+    /**
+     * @param mixed[] $expected
+     */
+    protected static function assertJsonResponse(array $expected, JsonResponse $response): void
     {
         Assert::assertNotFalse($response->getContent());
 

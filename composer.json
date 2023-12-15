@@ -38,6 +38,7 @@
         "fix": "@fix:phpcbf",
         "fix:phpcbf": "phpcbf src tests",
         "test": "phpunit",
+        "test:unit": "phpunit --testsuite unit",
         "test:integration": "phpunit --testsuite integration"
     },
     "suggest": {
