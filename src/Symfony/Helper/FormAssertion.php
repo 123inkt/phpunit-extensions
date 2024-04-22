@@ -121,4 +121,9 @@ class FormAssertion
 
         return $this;
     }
+
+    public function getForm(): FormInterface
+    {
+        return $this->form;
+    }
 }
