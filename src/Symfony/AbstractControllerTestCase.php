@@ -77,6 +77,20 @@ abstract class AbstractControllerTestCase extends TestCase
         return new FormAssertion($form, $this);
     }
 
+    /**
+     * @param array<string, mixed, array<string, int|string|object|object[]|null>> $formData
+     */
+    public function expectCreateForms(array $formData): FormAssertion
+    {
+        $form = $this->createMock(FormInterface::class);
+
+        $factory = $this->createMock(FormFactoryInterface::class);
+        $factory->expects(self::exactly(count($formData)))->method('create')->with(...consecutive(... $formData))->willReturn($form);
+        $this->container->set('form.factory', $factory);
+
+        return new FormAssertion($form, $this);
+    }
+
     public function expectAddFlash(string $type, mixed $message): void
     {
         $flashBag = $this->createMock(FlashBagInterface::class);
@@ -110,6 +124,7 @@ abstract class AbstractControllerTestCase extends TestCase
 
     /**
      * @param array<int, mixed> $arguments
+     *
      * @return InvocationMocker<RouterInterface>
      */
     public function expectGenerateUrlWithConsecutive(array ...$arguments): InvocationMocker
