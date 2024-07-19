@@ -20,4 +20,51 @@ trait ResponseAssertions
         $content = json_decode($response->getContent(), true);
         Assert::assertSame($expected, $content);
     }
+
+    protected static function assertResponse(Response $response, int $expectedStatusCode, ?string $expectedMessage = null): void
+    {
+        self::assertStatusCode($response, $expectedStatusCode);
+
+        if ($expectedMessage !== null) {
+            self::assertResponseMessage($response, $expectedMessage);
+        }
+    }
+
+    protected static function assertResponseIsSuccessful(Response $response, ?string $expectedMessage = null): void
+    {
+        self::assertResponse($response, Response::HTTP_OK, $expectedMessage);
+    }
+
+    protected static function assertResponseIsRedirect(Response $response, ?string $expectedMessage = null): void
+    {
+        self::assertResponse($response, Response::HTTP_FOUND, $expectedMessage);
+    }
+
+    protected static function assertResponseIsClientError(Response $response, ?string $expectedMessage = null): void
+    {
+        self::assertResponse($response, Response::HTTP_BAD_REQUEST, $expectedMessage);
+    }
+
+    protected static function assertResponseIsServerError(Response $response, ?string $expectedMessage = null): void
+    {
+        self::assertResponse($response, Response::HTTP_INTERNAL_SERVER_ERROR, $expectedMessage);
+    }
+
+    private static function assertStatusCode(Response $response, int $expectedStatusCode): void
+    {
+        Assert::assertEquals(
+            $expectedStatusCode,
+            $response->getStatusCode(),
+            sprintf('Expected status code %d but got %d.', $expectedStatusCode, $response->getStatusCode())
+        );
+    }
+
+    private static function assertResponseMessage(Response $response, string $expectedMessage): void
+    {
+        Assert::assertSame(
+            $expectedMessage,
+            $response->getContent(),
+            sprintf('Expected response message to contain "%s".', $expectedMessage)
+        );
+    }
 }
