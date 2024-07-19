@@ -6,8 +6,6 @@ namespace DR\PHPUnitExtensions\Tests\Unit\Symfony;
 
 use DR\PHPUnitExtensions\Symfony\ResponseAssertions;
 use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,6 +60,9 @@ class ResponseAssertionsTest extends TestCase
         self::assertStatusCode($response, $statusCode);
     }
 
+    /**
+     * @return array<int, array{int, bool}>
+     */
     public static function statusCodeProvider(): array
     {
         return [
@@ -84,6 +85,9 @@ class ResponseAssertionsTest extends TestCase
         self::assertResponseMessage($response, $expectedMessage);
     }
 
+    /**
+     * @return array<int, array{string, bool}>
+     */
     public static function responseMessageProvider(): array
     {
         return [
@@ -106,6 +110,9 @@ class ResponseAssertionsTest extends TestCase
         self::assertResponse($response, $statusCode, $messageContent);
     }
 
+    /**
+     * @return array<int, array{int, ?string, bool}>
+     */
     public static function assertResponseProvider(): array
     {
         return [
@@ -128,6 +135,9 @@ class ResponseAssertionsTest extends TestCase
         self::assertResponseIsSuccessful($response, $expectedMessage);
     }
 
+    /**
+     * @return array<int, array{int, ?string, bool}>
+     */
     public static function responseIsSuccessfulProvider(): array
     {
         return [
@@ -151,6 +161,9 @@ class ResponseAssertionsTest extends TestCase
         self::assertResponseIsRedirect($response, $expectedMessage);
     }
 
+    /**
+     * @return array<int, array{int, ?string, bool}>
+     */
     public static function responseIsRedirectProvider(): array
     {
         return [
@@ -174,6 +187,9 @@ class ResponseAssertionsTest extends TestCase
         self::assertResponseIsClientError($response, $expectedMessage);
     }
 
+    /**
+     * @return array<int, array{int, ?string, bool}>
+     */
     public static function responseIsClientErrorProvider(): array
     {
         return [
@@ -197,6 +213,9 @@ class ResponseAssertionsTest extends TestCase
         self::assertResponseIsServerError($response, $expectedMessage);
     }
 
+    /**
+     * @return array<int, array{int, ?string, bool}>
+     */
     public static function responseIsServerErrorProvider(): array
     {
         return [
