@@ -12,7 +12,9 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-#[CoversClass(ResponseAssertions::class)]
+/**
+ * @covers \DR\PHPUnitExtensions\Symfony\ResponseAssertions
+ */
 class ResponseAssertionsTest extends TestCase
 {
     use ResponseAssertions;
@@ -47,8 +49,9 @@ class ResponseAssertionsTest extends TestCase
         self::assertJsonResponse($expected, $response);
     }
 
-    #[TestWith([200, true])]
-    #[TestWith([404, false])]
+    /**
+     * @dataProvider statusCodeProvider
+     */
     public function testAssertStatusCode(int $statusCode, bool $shouldPass): void
     {
         $response = new Response('', 200);
@@ -59,11 +62,20 @@ class ResponseAssertionsTest extends TestCase
         self::assertStatusCode($response, $statusCode);
     }
 
-    #[TestWith(['This is a test message', true])]
-    #[TestWith(['Different message', false])]
+    public static function statusCodeProvider(): array
+    {
+        return [
+            [200, true],
+            [404, false],
+        ];
+    }
+
+    /**
+     * @dataProvider responseMessageProvider
+     */
     public function testAssertResponseMessage(string $messageContent, bool $shouldPass): void
     {
-        $response        = new Response($messageContent);
+        $response = new Response($messageContent);
         $expectedMessage = 'This is a test message';
 
         if ($shouldPass === false) {
@@ -72,8 +84,17 @@ class ResponseAssertionsTest extends TestCase
         self::assertResponseMessage($response, $expectedMessage);
     }
 
-    #[TestWith([200, 'This is a test message', true])]
-    #[TestWith([404, 'This is a test message', false])]
+    public static function responseMessageProvider(): array
+    {
+        return [
+            ['This is a test message', true],
+            ['Different message', false],
+        ];
+    }
+
+    /**
+     * @dataProvider assertResponseProvider
+     */
     public function testAssertResponseDifferentCode(int $statusCode, ?string $messageContent, bool $shouldPass): void
     {
         $response = new Response('This is a test message', 200);
@@ -85,10 +106,17 @@ class ResponseAssertionsTest extends TestCase
         self::assertResponse($response, $statusCode, $messageContent);
     }
 
-    #[TestWith([200, null, true])]
-    #[TestWith([200, 'Expected message', true])]
-    #[TestWith([404, null, false])]
-    #[TestWith([200, 'Unexpected message', false])]
+    public static function assertResponseProvider(): array
+    {
+        return [
+            [200, 'This is a test message', true],
+            [404, 'This is a test message', false],
+        ];
+    }
+
+    /**
+     * @dataProvider responseIsSuccessfulProvider
+     */
     public function testAssertResponseIsSuccessful(int $statusCode, ?string $expectedMessage, bool $shouldPass): void
     {
         $response = new Response('Expected message', $statusCode);
@@ -100,10 +128,19 @@ class ResponseAssertionsTest extends TestCase
         self::assertResponseIsSuccessful($response, $expectedMessage);
     }
 
-    #[TestWith([302, null, true])]
-    #[TestWith([302, 'Expected message', true])]
-    #[TestWith([200, null, false])]
-    #[TestWith([302, 'Unexpected message', false])]
+    public static function responseIsSuccessfulProvider(): array
+    {
+        return [
+            [200, null, true],
+            [200, 'Expected message', true],
+            [404, null, false],
+            [200, 'Unexpected message', false],
+        ];
+    }
+
+    /**
+     * @dataProvider responseIsRedirectProvider
+     */
     public function testAssertResponseIsRedirect(int $statusCode, ?string $expectedMessage, bool $shouldPass): void
     {
         $response = new Response('Expected message', $statusCode);
@@ -114,10 +151,19 @@ class ResponseAssertionsTest extends TestCase
         self::assertResponseIsRedirect($response, $expectedMessage);
     }
 
-    #[TestWith([400, null, true])]
-    #[TestWith([400, 'Expected message', true])]
-    #[TestWith([200, null, false])]
-    #[TestWith([400, 'Unexpected message', false])]
+    public static function responseIsRedirectProvider(): array
+    {
+        return [
+            [302, null, true],
+            [302, 'Expected message', true],
+            [200, null, false],
+            [302, 'Unexpected message', false],
+        ];
+    }
+
+    /**
+     * @dataProvider responseIsClientErrorProvider
+     */
     public function testAssertResponseIsClientError(int $statusCode, ?string $expectedMessage, bool $shouldPass): void
     {
         $response = new Response('Expected message', $statusCode);
@@ -128,10 +174,19 @@ class ResponseAssertionsTest extends TestCase
         self::assertResponseIsClientError($response, $expectedMessage);
     }
 
-    #[TestWith([500, null, true])]
-    #[TestWith([500, 'Expected message', true])]
-    #[TestWith([200, null, false])]
-    #[TestWith([500, 'Unexpected message', false])]
+    public static function responseIsClientErrorProvider(): array
+    {
+        return [
+            [400, null, true],
+            [400, 'Expected message', true],
+            [200, null, false],
+            [400, 'Unexpected message', false],
+        ];
+    }
+
+    /**
+     * @dataProvider responseIsServerErrorProvider
+     */
     public function testAssertResponseIsServerError(int $statusCode, ?string $expectedMessage, bool $shouldPass): void
     {
         $response = new Response('Expected message', $statusCode);
@@ -140,5 +195,15 @@ class ResponseAssertionsTest extends TestCase
             $this->expectException(AssertionFailedError::class);
         }
         self::assertResponseIsServerError($response, $expectedMessage);
+    }
+
+    public static function responseIsServerErrorProvider(): array
+    {
+        return [
+            [500, null, true],
+            [500, 'Expected message', true],
+            [200, null, false],
+            [500, 'Unexpected message', false],
+        ];
     }
 }
