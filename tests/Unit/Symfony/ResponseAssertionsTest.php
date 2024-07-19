@@ -52,7 +52,7 @@ class ResponseAssertionsTest extends TestCase
      */
     public function testAssertStatusCode(int $statusCode, bool $shouldPass): void
     {
-        $response = new Response('', 200);
+        $response = new Response('', Response::HTTP_OK);
 
         if ($shouldPass === false) {
             $this->expectException(AssertionFailedError::class);
@@ -66,8 +66,8 @@ class ResponseAssertionsTest extends TestCase
     public static function statusCodeProvider(): array
     {
         return [
-            [200, true],
-            [404, false],
+            [Response::HTTP_OK, true],
+            [Response::HTTP_NOT_FOUND, false],
         ];
     }
 
@@ -76,7 +76,7 @@ class ResponseAssertionsTest extends TestCase
      */
     public function testAssertResponseMessage(string $messageContent, bool $shouldPass): void
     {
-        $response = new Response($messageContent);
+        $response        = new Response($messageContent);
         $expectedMessage = 'This is a test message';
 
         if ($shouldPass === false) {
@@ -101,7 +101,7 @@ class ResponseAssertionsTest extends TestCase
      */
     public function testAssertResponseDifferentCode(int $statusCode, ?string $messageContent, bool $shouldPass): void
     {
-        $response = new Response('This is a test message', 200);
+        $response = new Response('This is a test message', Response::HTTP_OK);
 
         if ($shouldPass === false) {
             $this->expectException(AssertionFailedError::class);
@@ -116,8 +116,8 @@ class ResponseAssertionsTest extends TestCase
     public static function assertResponseProvider(): array
     {
         return [
-            [200, 'This is a test message', true],
-            [404, 'This is a test message', false],
+            [Response::HTTP_OK, 'This is a test message', true],
+            [Response::HTTP_NOT_FOUND, 'This is a test message', false],
         ];
     }
 
@@ -141,10 +141,10 @@ class ResponseAssertionsTest extends TestCase
     public static function responseIsSuccessfulProvider(): array
     {
         return [
-            [200, null, true],
-            [200, 'Expected message', true],
-            [404, null, false],
-            [200, 'Unexpected message', false],
+            [Response::HTTP_OK, null, true],
+            [Response::HTTP_OK, 'Expected message', true],
+            [Response::HTTP_NOT_FOUND, null, false],
+            [Response::HTTP_OK, 'Unexpected message', false],
         ];
     }
 
@@ -167,10 +167,10 @@ class ResponseAssertionsTest extends TestCase
     public static function responseIsRedirectProvider(): array
     {
         return [
-            [302, null, true],
-            [302, 'Expected message', true],
-            [200, null, false],
-            [302, 'Unexpected message', false],
+            [Response::HTTP_MOVED_PERMANENTLY, null, true],
+            [Response::HTTP_MOVED_PERMANENTLY, 'Expected message', true],
+            [Response::HTTP_OK, null, false],
+            [Response::HTTP_MOVED_PERMANENTLY, 'Unexpected message', false],
         ];
     }
 
@@ -193,10 +193,10 @@ class ResponseAssertionsTest extends TestCase
     public static function responseIsBadRequestProvider(): array
     {
         return [
-            [400, null, true],
-            [400, 'Expected message', true],
-            [200, null, false],
-            [400, 'Unexpected message', false],
+            [Response::HTTP_BAD_REQUEST, null, true],
+            [Response::HTTP_BAD_REQUEST, 'Expected message', true],
+            [Response::HTTP_OK, null, false],
+            [Response::HTTP_BAD_REQUEST, 'Unexpected message', false],
         ];
     }
 
@@ -219,10 +219,10 @@ class ResponseAssertionsTest extends TestCase
     public static function responseIsServerErrorProvider(): array
     {
         return [
-            [500, null, true],
-            [500, 'Expected message', true],
-            [200, null, false],
-            [500, 'Unexpected message', false],
+            [Response::HTTP_INTERNAL_SERVER_ERROR, null, true],
+            [Response::HTTP_INTERNAL_SERVER_ERROR, 'Expected message', true],
+            [Response::HTTP_OK, null, false],
+            [Response::HTTP_INTERNAL_SERVER_ERROR, 'Unexpected message', false],
         ];
     }
 }
