@@ -102,6 +102,18 @@ class MyConstraintValidatorTest extends AbstractConstraintValidatorTestCase
 - `expectAtPath`
 - `expectAddViolation`
 
+### ResponseAssertions trait
+The ResponseAssertions trait provides a set of assertion methods designed to streamline the testing of Symfony HTTP responses. 
+This trait includes methods for verifying the status code, response message content and specific types of responses such as JSON responses
+
+**Methods**
+- `assertJsonResponse`
+- `assertResponse`
+- `assertResponseIsSuccessful`
+- `assertResponseIsRedirect`
+- `assertResponseIsBadRequest`
+- `assertResponseIsServerError`
+
 ## About us
 
 At 123inkt (Part of Digital Revolution B.V.), every day more than 50 development professionals are working on improving our internal ERP 

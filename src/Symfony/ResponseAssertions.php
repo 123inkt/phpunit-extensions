@@ -37,10 +37,10 @@ trait ResponseAssertions
 
     protected static function assertResponseIsRedirect(Response $response, ?string $expectedMessage = null): void
     {
-        self::assertResponse($response, Response::HTTP_FOUND, $expectedMessage);
+        self::assertResponse($response, Response::HTTP_MOVED_PERMANENTLY, $expectedMessage);
     }
 
-    protected static function assertResponseIsClientError(Response $response, ?string $expectedMessage = null): void
+    protected static function assertResponseIsBadRequest(Response $response, ?string $expectedMessage = null): void
     {
         self::assertResponse($response, Response::HTTP_BAD_REQUEST, $expectedMessage);
     }
@@ -52,7 +52,7 @@ trait ResponseAssertions
 
     private static function assertStatusCode(Response $response, int $expectedStatusCode): void
     {
-        Assert::assertEquals(
+        Assert::assertSame(
             $expectedStatusCode,
             $response->getStatusCode(),
             sprintf('Expected status code %d but got %d.', $expectedStatusCode, $response->getStatusCode())
@@ -61,10 +61,6 @@ trait ResponseAssertions
 
     private static function assertResponseMessage(Response $response, string $expectedMessage): void
     {
-        Assert::assertSame(
-            $expectedMessage,
-            $response->getContent(),
-            sprintf('Expected response message to contain "%s".', $expectedMessage)
-        );
+        Assert::assertSame($expectedMessage, $response->getContent());
     }
 }

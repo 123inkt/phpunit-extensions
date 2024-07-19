@@ -175,22 +175,22 @@ class ResponseAssertionsTest extends TestCase
     }
 
     /**
-     * @dataProvider responseIsClientErrorProvider
+     * @dataProvider responseIsBadRequestProvider
      */
-    public function testAssertResponseIsClientError(int $statusCode, ?string $expectedMessage, bool $shouldPass): void
+    public function testAssertResponseIsBadRequest(int $statusCode, ?string $expectedMessage, bool $shouldPass): void
     {
         $response = new Response('Expected message', $statusCode);
 
         if ($shouldPass === false) {
             $this->expectException(AssertionFailedError::class);
         }
-        self::assertResponseIsClientError($response, $expectedMessage);
+        self::assertResponseIsBadRequest($response, $expectedMessage);
     }
 
     /**
      * @return array<int, array{int, ?string, bool}>
      */
-    public static function responseIsClientErrorProvider(): array
+    public static function responseIsBadRequestProvider(): array
     {
         return [
             [400, null, true],
