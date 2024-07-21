@@ -110,8 +110,8 @@ This trait includes methods for verifying the status code, response message cont
 - `assertJsonResponse`
 - `assertResponse`
 - `assertResponseIsSuccessful`
-- `assertResponseIsRedirect`
-- `assertResponseIsBadRequest`
+- `assertResponseIsRedirection`
+- `assertResponseIsClientError`
 - `assertResponseIsServerError`
 
 ## About us

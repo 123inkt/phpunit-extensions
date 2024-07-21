@@ -72,9 +72,9 @@ class ResponseAssertionsTest extends TestCase
     }
 
     /**
-     * @dataProvider responseMessageProvider
+     * @dataProvider responseContentProvider
      */
-    public function testAssertResponseMessage(string $messageContent, bool $shouldPass): void
+    public function testAssertResponseContent(string $messageContent, bool $shouldPass): void
     {
         $response        = new Response($messageContent);
         $expectedMessage = 'This is a test message';
@@ -82,13 +82,13 @@ class ResponseAssertionsTest extends TestCase
         if ($shouldPass === false) {
             $this->expectException(AssertionFailedError::class);
         }
-        self::assertResponseMessage($response, $expectedMessage);
+        self::assertResponseContent($response, $expectedMessage);
     }
 
     /**
      * @return array<int, array{string, bool}>
      */
-    public static function responseMessageProvider(): array
+    public static function responseContentProvider(): array
     {
         return [
             ['This is a test message', true],
@@ -149,48 +149,49 @@ class ResponseAssertionsTest extends TestCase
     }
 
     /**
-     * @dataProvider responseIsRedirectProvider
+     * @dataProvider responseIsRedirectionProvider
      */
-    public function testAssertResponseIsRedirect(int $statusCode, ?string $expectedMessage, bool $shouldPass): void
+    public function testAssertResponseIsRedirection(int $statusCode, ?string $expectedRedirectionUrl, bool $shouldPass): void
     {
-        $response = new Response('Expected message', $statusCode);
+        $response = new Response('', $statusCode);
+        $response->headers->set('Location', 'http://expected.com');
 
         if ($shouldPass === false) {
             $this->expectException(AssertionFailedError::class);
         }
-        self::assertResponseIsRedirect($response, $expectedMessage);
+        self::assertResponseIsRedirection($response, $expectedRedirectionUrl);
     }
 
     /**
      * @return array<int, array{int, ?string, bool}>
      */
-    public static function responseIsRedirectProvider(): array
+    public static function responseIsRedirectionProvider(): array
     {
         return [
             [Response::HTTP_MOVED_PERMANENTLY, null, true],
-            [Response::HTTP_MOVED_PERMANENTLY, 'Expected message', true],
+            [Response::HTTP_MOVED_PERMANENTLY, 'http://expected.com', true],
             [Response::HTTP_OK, null, false],
-            [Response::HTTP_MOVED_PERMANENTLY, 'Unexpected message', false],
+            [Response::HTTP_MOVED_PERMANENTLY, 'http://unexpected.com', false],
         ];
     }
 
     /**
-     * @dataProvider responseIsBadRequestProvider
+     * @dataProvider responseIsClientErrorProvider
      */
-    public function testAssertResponseIsBadRequest(int $statusCode, ?string $expectedMessage, bool $shouldPass): void
+    public function testAssertResponseIsClientError(int $statusCode, ?string $expectedMessage, bool $shouldPass): void
     {
         $response = new Response('Expected message', $statusCode);
 
         if ($shouldPass === false) {
             $this->expectException(AssertionFailedError::class);
         }
-        self::assertResponseIsBadRequest($response, $expectedMessage);
+        self::assertResponseIsClientError($response, $expectedMessage);
     }
 
     /**
      * @return array<int, array{int, ?string, bool}>
      */
-    public static function responseIsBadRequestProvider(): array
+    public static function responseIsClientErrorProvider(): array
     {
         return [
             [Response::HTTP_BAD_REQUEST, null, true],
