@@ -55,6 +55,7 @@ abstract class AbstractConstraintValidatorTestCase extends TestCase
         parent::setUp();
         $this->violationBuilder = $this->createMock(ConstraintViolationBuilder::class);
         $this->executionContext = $this->createMock(ExecutionContextInterface::class);
+        $this->executionContext->method('getRoot')->willReturn($this->initRootForm());
 
         $this->validator  = $this->getValidator();
         $this->constraint = $this->getConstraint();
