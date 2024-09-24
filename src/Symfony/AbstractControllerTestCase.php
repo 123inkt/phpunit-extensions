@@ -63,7 +63,7 @@ abstract class AbstractControllerTestCase extends TestCase
     }
 
     /**
-     * @param array<string, int|string|object|object[]|null> $options
+     * @param array<string, mixed> $options
      */
     public function expectCreateForm(string $type, mixed $data = null, array $options = []): FormAssertion
     {
