@@ -30,7 +30,6 @@ use function DR\PHPUnitExtensions\Mock\consecutive;
 
 /**
  * @template T as AbstractController&callable
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 abstract class AbstractControllerTestCase extends TestCase
 {

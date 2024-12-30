@@ -43,7 +43,7 @@ class FormAssertion
         $this->form->expects(atLeastOnce())
             ->method('get')
             ->willReturnCallback(
-                function ($key) use ($keyValueData) {
+                function (string $key) use ($keyValueData) {
                     if (array_key_exists($key, $keyValueData) === false) {
                         // @codeCoverageIgnoreStart
                         throw new RuntimeException('Missing key in data: ' . $key);
@@ -89,7 +89,7 @@ class FormAssertion
     }
 
     /**
-     * @param FormError[] $errors
+     * @param list<FormError> $errors
      */
     public function getErrorsWillReturn(array $errors): self
     {
