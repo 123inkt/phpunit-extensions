@@ -9,9 +9,6 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 use function DR\PHPUnitExtensions\Mock\consecutive;
 use function PHPUnit\Framework\atLeastOnce;
 
-/**
- * @SuppressWarnings(PHPMD.TooManyPublicMethods)
- */
 class ConstraintViolationBuilderAssertion
 {
     /**

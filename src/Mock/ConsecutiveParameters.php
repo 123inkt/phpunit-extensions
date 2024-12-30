@@ -18,8 +18,6 @@ class ConsecutiveParameters
 
     /**
      * @param array<int, mixed|Constraint> $expectedArguments
-     *
-     * @throws Exception
      */
     public function __construct(private readonly array $expectedArguments)
     {

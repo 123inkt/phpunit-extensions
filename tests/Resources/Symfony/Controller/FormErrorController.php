@@ -14,7 +14,12 @@ use Symfony\Component\Form\FormInterface;
 class FormErrorController extends AbstractController
 {
     /**
-     * @return array{name: string, errors: FormErrorIterator<FormError>, config: FormConfigInterface, all: FormInterface[]}
+     * @return array{
+     *     name: string,
+     *     errors: FormErrorIterator<FormError>,
+     *     config: FormConfigInterface<null>,
+     *     all: FormInterface<null>[]
+     * }
      */
     public function __invoke(): array
     {
