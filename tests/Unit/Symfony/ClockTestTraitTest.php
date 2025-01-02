@@ -9,7 +9,6 @@ use DR\PHPUnitExtensions\Symfony\ClockTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @requires PHPUnit >= 10.0
  * @covers \DR\PHPUnitExtensions\Symfony\ClockTestTrait
  */
 class ClockTestTraitTest extends TestCase

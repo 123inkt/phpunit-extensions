@@ -14,6 +14,9 @@ trait ClockTestTrait
 {
     use ClockSensitiveTrait;
 
+    /**
+     * @before
+     */
     #[Before]
     protected function freezeTime(): void
     {
