@@ -114,6 +114,15 @@ This trait includes methods for verifying the status code, response message cont
 - `assertResponseIsClientError`
 - `assertResponseIsServerError`
 
+### ClockTestTrait
+The ClockTestTrait provides a set of methods to manipulate the current time in tests. This trait will automatically freeze the time at the start of
+each test. The trait also provides methods to get the current time as timestamp or `DateTimeImmutable` object, 
+
+**Methods**
+- `self::time(): int`
+- `self::now(): DateTimeImmutable`
+- `self::sleep(int|float $seconds): void`
+
 ## About us
 
 At 123inkt (Part of Digital Revolution B.V.), every day more than 50 development professionals are working on improving our internal ERP 
