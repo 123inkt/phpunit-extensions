@@ -54,14 +54,20 @@ trait ClockTestTrait
     }
 
     /**
+     * Asserts that the give timestamp of DateTime is equal to now
+     */
+    protected static function assertNow(int|DateTimeInterface $actual, string $message = ''): void
+    {
+        self::assertSameTime(self::now(), $actual, $message);
+    }
+
+    /**
      * Asserts that two timestamps
      *
      * @throws ExpectationFailedException
      *
      * @phpstan-template ExpectedType
-     *
-     * @phpstan-param ExpectedType $expected
-     *
+     * @phpstan-param ExpectedType  $expected
      * @phpstan-assert ExpectedType $actual
      */
     protected static function assertSameTime(int|DateTimeInterface $expected, int|DateTimeInterface $actual, string $message = ''): void
