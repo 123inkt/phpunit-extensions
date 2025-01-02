@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace DR\PHPUnitExtensions\Symfony;
 
 use DateTimeImmutable;
+use DateTimeInterface;
 use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\ExpectationFailedException;
 use Symfony\Component\Clock\Clock;
 use Symfony\Component\Clock\Test\ClockSensitiveTrait;
 
@@ -49,5 +51,28 @@ trait ClockTestTrait
     protected static function sleep(int|float $seconds): void
     {
         Clock::get()->sleep($seconds);
+    }
+
+    /**
+     * Asserts that two timestamps
+     *
+     * @throws ExpectationFailedException
+     *
+     * @phpstan-template ExpectedType
+     *
+     * @phpstan-param ExpectedType $expected
+     *
+     * @phpstan-assert ExpectedType $actual
+     */
+    protected static function assertSameTime(int|DateTimeInterface $expected, int|DateTimeInterface $actual, string $message = ''): void
+    {
+        if ($expected instanceof DateTimeInterface) {
+            $expected = $expected->getTimestamp();
+        }
+        if ($actual instanceof DateTimeInterface) {
+            $actual = $actual->getTimestamp();
+        }
+
+        self::assertSame($expected, $actual, $message);
     }
 }
