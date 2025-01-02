@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DR\PHPUnitExtensions\Tests\Unit\Symfony;
 
+use DateTimeImmutable;
 use DR\PHPUnitExtensions\Symfony\ClockTestTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -27,5 +28,15 @@ class ClockTestTraitTest extends TestCase
     {
         self::sleep(123.456);
         self::assertSame(1634050698, self::time());
+    }
+
+    public function testAssertNow(): void
+    {
+        self::assertNow((new DateTimeImmutable())->setTimestamp(1634050575));
+    }
+
+    public function testAssertTime(): void
+    {
+        self::assertSameTime(1634050575, self::now());
     }
 }
