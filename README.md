@@ -122,6 +122,8 @@ each test. The trait also provides methods to get the current time as timestamp 
 - `self::time(): int`
 - `self::now(): DateTimeImmutable`
 - `self::sleep(int|float $seconds): void`
+- `self::assertNow()`
+- `self::assertSameTime()`
 
 ## About us
 
