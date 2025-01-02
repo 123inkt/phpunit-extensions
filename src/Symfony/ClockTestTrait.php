@@ -7,7 +7,6 @@ namespace DR\PHPUnitExtensions\Symfony;
 use DateTimeImmutable;
 use DateTimeInterface;
 use PHPUnit\Framework\Attributes\Before;
-use PHPUnit\Framework\ExpectationFailedException;
 use Symfony\Component\Clock\Clock;
 use Symfony\Component\Clock\Test\ClockSensitiveTrait;
 
@@ -62,13 +61,7 @@ trait ClockTestTrait
     }
 
     /**
-     * Asserts that two timestamps
-     *
-     * @throws ExpectationFailedException
-     *
-     * @phpstan-template ExpectedType
-     * @phpstan-param ExpectedType  $expected
-     * @phpstan-assert ExpectedType $actual
+     * Asserts that two timestamps (or timestamp of DateTime) are equal.
      */
     protected static function assertSameTime(int|DateTimeInterface $expected, int|DateTimeInterface $actual, string $message = ''): void
     {
