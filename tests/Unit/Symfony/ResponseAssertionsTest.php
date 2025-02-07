@@ -7,6 +7,7 @@ namespace DR\PHPUnitExtensions\Tests\Unit\Symfony;
 use DR\PHPUnitExtensions\Symfony\ResponseAssertions;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,9 +47,7 @@ class ResponseAssertionsTest extends TestCase
         self::assertJsonResponse($expected, $response);
     }
 
-    /**
-     * @dataProvider statusCodeProvider
-     */
+    #[DataProvider('statusCodeProvider')]
     public function testAssertStatusCode(int $statusCode, bool $shouldPass): void
     {
         $response = new Response('', Response::HTTP_OK);
@@ -70,9 +69,7 @@ class ResponseAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider responseContentProvider
-     */
+    #[DataProvider('responseContentProvider')]
     public function testAssertResponseContent(string $messageContent, bool $shouldPass): void
     {
         $response        = new Response($messageContent);
@@ -95,9 +92,7 @@ class ResponseAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider assertResponseProvider
-     */
+    #[DataProvider('assertResponseProvider')]
     public function testAssertResponseDifferentCode(int $statusCode, ?string $messageContent, bool $shouldPass): void
     {
         $response = new Response('This is a test message', Response::HTTP_OK);
@@ -120,9 +115,7 @@ class ResponseAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider responseIsSuccessfulProvider
-     */
+    #[DataProvider('responseIsSuccessfulProvider')]
     public function testAssertResponseIsSuccessful(int $statusCode, ?string $expectedMessage, bool $shouldPass): void
     {
         $response = new Response('Expected message', $statusCode);
@@ -147,9 +140,7 @@ class ResponseAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider responseIsRedirectionProvider
-     */
+    #[DataProvider('responseIsRedirectionProvider')]
     public function testAssertResponseIsRedirection(int $statusCode, ?string $expectedRedirectionUrl, bool $shouldPass): void
     {
         $response = new Response('', $statusCode);
@@ -174,9 +165,7 @@ class ResponseAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider responseIsClientErrorProvider
-     */
+    #[DataProvider('responseIsClientErrorProvider')]
     public function testAssertResponseIsClientError(int $statusCode, ?string $expectedMessage, bool $shouldPass): void
     {
         $response = new Response('Expected message', $statusCode);
@@ -200,9 +189,7 @@ class ResponseAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider responseIsServerErrorProvider
-     */
+    #[DataProvider('responseIsServerErrorProvider')]
     public function testAssertResponseIsServerError(int $statusCode, ?string $expectedMessage, bool $shouldPass): void
     {
         $response = new Response('Expected message', $statusCode);
