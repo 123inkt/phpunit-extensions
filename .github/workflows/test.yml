@@ -41,6 +41,8 @@ jobs:
       - name: Install dependencies
         run: composer update --prefer-dist --no-progress --no-suggest --prefer-stable ${{ matrix.composer-flags }}
 
+      - run: '[[ "${{ matrix.composer-flags }}" != "--prefer-lowest" ]] || cp phpunit10.xml.dist phpunit.xml.dist'
+
       - name: Run test suite
         run: composer test
 
