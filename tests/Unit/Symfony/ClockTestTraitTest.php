@@ -6,10 +6,10 @@ namespace DR\PHPUnitExtensions\Tests\Unit\Symfony;
 
 use DateTimeImmutable;
 use DR\PHPUnitExtensions\Symfony\ClockTestTrait;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(ClockTestTrait::class)]
+#[CoversTrait(ClockTestTrait::class)]
 class ClockTestTraitTest extends TestCase
 {
     use ClockTestTrait;
