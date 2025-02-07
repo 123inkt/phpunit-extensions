@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace DR\PHPUnitExtensions\Tests\Integration\Mock;
 
+use DR\PHPUnitExtensions\Mock\ConsecutiveParameters;
 use DR\PHPUnitExtensions\Tests\Resources\Mock\ConsecutiveMock;
 use DR\PHPUnitExtensions\Tests\Resources\Mock\MockInterface;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversFunction;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
@@ -16,6 +19,8 @@ use function DR\PHPUnitExtensions\Mock\consecutive;
  * @covers \DR\PHPUnitExtensions\Mock\ConsecutiveParameters
  * @covers \DR\PHPUnitExtensions\Mock\consecutive
  */
+#[CoversClass(ConsecutiveParameters::class)]
+#[CoversFunction('DR\PHPUnitExtensions\Mock\consecutive')]
 class ConsecutiveTest extends TestCase
 {
     public function testConsecutiveSingle(): void

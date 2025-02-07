@@ -5,16 +5,18 @@ declare(strict_types=1);
 namespace DR\PHPUnitExtensions\Tests\Integration\Symfony\Controller;
 
 use DR\PHPUnitExtensions\Symfony\AbstractControllerTestCase;
+use DR\PHPUnitExtensions\Symfony\Helper\FormAssertion;
 use DR\PHPUnitExtensions\Tests\Resources\Symfony\Controller\FormController;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @extends AbstractControllerTestCase<FormController>
- * @covers \DR\PHPUnitExtensions\Symfony\AbstractControllerTestCase
- * @covers \DR\PHPUnitExtensions\Symfony\Helper\FormAssertion
  */
+#[CoversClass(AbstractControllerTestCase::class)]
+#[CoversClass(FormAssertion::class)]
 class FormControllerTest extends AbstractControllerTestCase
 {
     public function testInvoke(): void

@@ -5,17 +5,19 @@ declare(strict_types=1);
 namespace DR\PHPUnitExtensions\Tests\Integration\Symfony\ConstraintValidator;
 
 use DR\PHPUnitExtensions\Symfony\AbstractConstraintValidatorTestCase;
+use DR\PHPUnitExtensions\Symfony\Helper\ConstraintViolationBuilderAssertion;
 use DR\PHPUnitExtensions\Tests\Resources\Symfony\Constraint\TestConstraint;
 use DR\PHPUnitExtensions\Tests\Resources\Symfony\Constraint\TestConstraintValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Exception;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 /**
  * @extends AbstractConstraintValidatorTestCase<TestConstraintValidator, TestConstraint>
- * @covers \DR\PHPUnitExtensions\Symfony\AbstractConstraintValidatorTestCase
- * @covers \DR\PHPUnitExtensions\Symfony\Helper\ConstraintViolationBuilderAssertion
  */
+#[CoversClass(AbstractConstraintValidatorTestCase::class)]
+#[CoversClass(ConstraintViolationBuilderAssertion::class)]
 class ConstraintValidatorTest extends AbstractConstraintValidatorTestCase
 {
     protected function getValidator(): ConstraintValidator
