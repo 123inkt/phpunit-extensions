@@ -60,7 +60,7 @@ jobs:
       - name: Install dependencies
         run: composer update --prefer-dist --no-progress --no-suggest --prefer-stable
 
-      - run: cp phpunit-coverage.xml.dist phpunit.xml.dist'
+      - run: cp phpunit-coverage.xml.dist phpunit.xml.dist
 
       - name: Run test suite
         run: php -dpcov.enabled=1 -dpcov.exclude="~vendor~" vendor/bin/phpunit --coverage-clover ./.coverage/coverage.xml
