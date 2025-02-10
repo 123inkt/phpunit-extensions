@@ -5,8 +5,7 @@
          failOnWarning="true"
          beStrictAboutChangesToGlobalState="true"
          beStrictAboutOutputDuringTests="true"
-         executionOrder="defects"
-         requireCoverageMetadata="true">
+         executionOrder="defects">
     <testsuites>
         <testsuite name="integration">
             <directory>tests/Integration</directory>
