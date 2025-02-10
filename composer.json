@@ -71,7 +71,8 @@
         "psr-4": {
             "DR\\PHPUnitExtensions\\Tests\\": "tests/",
             "DR\\PHPUnitExtensions\\Tests\\Integration\\": "tests/Integration/",
-            "DR\\PHPUnitExtensions\\Tests\\Unit\\": "tests/Unit/"
+            "DR\\PHPUnitExtensions\\Tests\\Unit\\": "tests/Unit/",
+            "PHPUnit\\Framework\\Attributes\\": "tests/Stub/"
         }
     }
 }
