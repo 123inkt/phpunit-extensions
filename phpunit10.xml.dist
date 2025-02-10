@@ -6,8 +6,7 @@
          beStrictAboutChangesToGlobalState="true"
          beStrictAboutOutputDuringTests="true"
          executionOrder="defects"
-         cacheDirectory=".phpunit.cache"
-         requireCoverageMetadata="true">
+         cacheDirectory=".phpunit.cache">
     <testsuites>
         <testsuite name="integration">
             <directory>tests/Integration</directory>
