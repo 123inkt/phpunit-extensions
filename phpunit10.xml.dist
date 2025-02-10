@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
          failOnRisky="true"
          failOnWarning="true"
          beStrictAboutChangesToGlobalState="true"
          beStrictAboutOutputDuringTests="true"
-         executionOrder="defects">
+         executionOrder="defects"
+         cacheDirectory=".phpunit.cache">
     <testsuites>
         <testsuite name="integration">
             <directory>tests/Integration</directory>
@@ -14,9 +15,9 @@
             <directory>tests/Unit</directory>
         </testsuite>
     </testsuites>
-    <source>
+    <coverage>
         <include>
-            <directory>src</directory>
+            <directory suffix=".php">src</directory>
         </include>
-    </source>
+    </coverage>
 </phpunit>

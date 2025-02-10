@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace DR\PHPUnitExtensions\Tests\Integration\Symfony;
 
 use DR\PHPUnitExtensions\Symfony\AbstractControllerTestCase;
+use DR\PHPUnitExtensions\Symfony\Helper\FormAssertion;
 use DR\PHPUnitExtensions\Tests\Resources\Symfony\Controller\FormErrorController;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormError;
@@ -13,9 +15,9 @@ use Symfony\Component\Form\FormInterface;
 
 /**
  * @extends AbstractControllerTestCase<FormErrorController>
- * @covers \DR\PHPUnitExtensions\Symfony\AbstractControllerTestCase
- * @covers \DR\PHPUnitExtensions\Symfony\Helper\FormAssertion
  */
+#[CoversClass(AbstractControllerTestCase::class)]
+#[CoversClass(FormAssertion::class)]
 class FormErrorControllerTest extends AbstractControllerTestCase
 {
     public function testInvoke(): void

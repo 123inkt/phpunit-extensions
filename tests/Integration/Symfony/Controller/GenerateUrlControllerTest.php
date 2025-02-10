@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace DR\PHPUnitExtensions\Tests\Integration\Symfony\Controller;
 
 use DR\PHPUnitExtensions\Symfony\AbstractControllerTestCase;
+use DR\PHPUnitExtensions\Symfony\Helper\FormAssertion;
 use DR\PHPUnitExtensions\Symfony\ResponseAssertions;
 use DR\PHPUnitExtensions\Tests\Resources\Symfony\Controller\GenerateUrlController;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * @extends AbstractControllerTestCase<GenerateUrlController>
- * @covers \DR\PHPUnitExtensions\Symfony\AbstractControllerTestCase
  */
+#[CoversClass(AbstractControllerTestCase::class)]
 class GenerateUrlControllerTest extends AbstractControllerTestCase
 {
     use ResponseAssertions;

@@ -6,13 +6,14 @@ namespace DR\PHPUnitExtensions\Tests\Integration\Symfony\Controller;
 
 use DR\PHPUnitExtensions\Symfony\AbstractControllerTestCase;
 use DR\PHPUnitExtensions\Tests\Resources\Symfony\Controller\SecurityController;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends AbstractControllerTestCase<SecurityController>
- * @covers \DR\PHPUnitExtensions\Symfony\AbstractControllerTestCase
  */
+#[CoversClass(AbstractControllerTestCase::class)]
 class SecurityControllerTest extends AbstractControllerTestCase
 {
     public function getController(): SecurityController
