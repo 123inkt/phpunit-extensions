@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace DR\PHPUnitExtensions\Symfony;
 
 use DR\PHPUnitExtensions\Symfony\Helper\FormAssertion;
-use PHPUnit\Framework\MockObject\Builder\InvocationStubber;
+use PHPUnit\Framework\MockObject\Builder\InvocationStubber as DeprecatedInvocationStubber;
+use PHPUnit\Framework\MockObject\InvocationStubber;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -99,7 +100,7 @@ abstract class AbstractControllerTestCase extends TestCase
         string $route,
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
-    ): InvocationStubber {
+    ): DeprecatedInvocationStubber|InvocationStubber {
         $router = $this->createMock(RouterInterface::class);
         $this->container->set('router', $router);
 
@@ -109,7 +110,7 @@ abstract class AbstractControllerTestCase extends TestCase
     /**
      * @param array<int, mixed> $arguments
      */
-    public function expectGenerateUrlWithConsecutive(array ...$arguments): InvocationStubber
+    public function expectGenerateUrlWithConsecutive(array ...$arguments): DeprecatedInvocationStubber|InvocationStubber
     {
         $router = $this->createMock(RouterInterface::class);
         $this->container->set('router', $router);
@@ -120,13 +121,16 @@ abstract class AbstractControllerTestCase extends TestCase
     /**
      * @param array<string, int|string|object|null> $parameters
      */
-    public function expectRedirectToRoute(string $route, array $parameters = [], string $redirectTo = 'redirect'): InvocationStubber
-    {
+    public function expectRedirectToRoute(
+        string $route,
+        array $parameters = [],
+        string $redirectTo = 'redirect'
+    ): DeprecatedInvocationStubber|InvocationStubber {
         return $this->expectGenerateUrl($route, $parameters)->willReturn($redirectTo);
     }
 
     /**
-     * @param class-string         $controller
+     * @param class-string $controller
      * @param array<string, mixed> $path
      * @param array<string, mixed> $query
      */
