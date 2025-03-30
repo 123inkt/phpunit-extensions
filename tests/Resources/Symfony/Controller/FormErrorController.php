@@ -8,15 +8,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormErrorIterator;
 use Symfony\Component\Form\FormInterface;
+use Traversable;
 
 class FormErrorController extends AbstractController
 {
     /**
      * @return array{
      *     name: string,
-     *     errors: iterable<FormError>&FormErrorIterator<FormError>,
+     *     errors: Traversable<FormError>,
      *     config: FormConfigInterface<null>,
      *     all: FormInterface<null>[]
      * }
