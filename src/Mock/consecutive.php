@@ -19,7 +19,7 @@ if (function_exists('\DR\PHPUnitExtensions\Mock\consecutive') === false) {
      *
      * @note    Full qualified name to appease to phpstorm inspection gods
      *  phpcs:ignore
-     * @return \PHPUnit\Framework\Constraint\Callback<mixed>[]
+     * @return list<\PHPUnit\Framework\Constraint\Callback<mixed>>
      * @example <code>->with(...consecutive([5, 'foo'], [6, 'bar']))</code>
      */
     function consecutive(array $firstInvocationArguments, array $secondInvocationArguments, array ...$expectedArgumentList): array
