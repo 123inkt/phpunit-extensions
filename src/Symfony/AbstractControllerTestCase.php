@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace DR\PHPUnitExtensions\Symfony;
 
 use DR\PHPUnitExtensions\Symfony\Helper\FormAssertion;
-use PHPUnit\Framework\MockObject\Builder\InvocationMocker;
-use PHPUnit\Framework\MockObject\InvocationStubber;
+use PHPUnit\Framework\MockObject\Builder\InvocationStubber;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -100,7 +99,7 @@ abstract class AbstractControllerTestCase extends TestCase
         string $route,
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
-    ): InvocationMocker|InvocationStubber {
+    ): InvocationStubber {
         $router = $this->createMock(RouterInterface::class);
         $this->container->set('router', $router);
 
@@ -110,7 +109,7 @@ abstract class AbstractControllerTestCase extends TestCase
     /**
      * @param array<int, mixed> $arguments
      */
-    public function expectGenerateUrlWithConsecutive(array ...$arguments): InvocationMocker|InvocationStubber
+    public function expectGenerateUrlWithConsecutive(array ...$arguments): InvocationStubber
     {
         $router = $this->createMock(RouterInterface::class);
         $this->container->set('router', $router);
@@ -121,7 +120,7 @@ abstract class AbstractControllerTestCase extends TestCase
     /**
      * @param array<string, int|string|object|null> $parameters
      */
-    public function expectRedirectToRoute(string $route, array $parameters = [], string $redirectTo = 'redirect'): InvocationMocker|InvocationStubber
+    public function expectRedirectToRoute(string $route, array $parameters = [], string $redirectTo = 'redirect'): InvocationStubber
     {
         return $this->expectGenerateUrl($route, $parameters)->willReturn($redirectTo);
     }
