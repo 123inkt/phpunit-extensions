@@ -16,7 +16,7 @@ class FormErrorController extends AbstractController
     /**
      * @return array{
      *     name: string,
-     *     errors: FormErrorIterator<FormError>,
+     *     errors: iterable<FormError>&FormErrorIterator<FormError>,
      *     config: FormConfigInterface<null>,
      *     all: FormInterface<null>[]
      * }

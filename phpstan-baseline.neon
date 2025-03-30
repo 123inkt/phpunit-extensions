@@ -17,9 +17,3 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: src/Symfony/Helper/FormAssertion.php
-
-		-
-			message: '#^Method DR\\PHPUnitExtensions\\Tests\\Resources\\Symfony\\Controller\\FormErrorController\:\:__invoke\(\) should return array\{name\: string, errors\: iterable\<Symfony\\Component\\Form\\FormError\>&Symfony\\Component\\Form\\FormErrorIterator, config\: Symfony\\Component\\Form\\FormConfigInterface\<null\>, all\: array\<Symfony\\Component\\Form\\FormInterface\<null\>\>\} but returns array\{name\: string, errors\: Symfony\\Component\\Form\\FormErrorIterator\<Symfony\\Component\\Form\\FormError\>, config\: Symfony\\Component\\Form\\FormConfigInterface, all\: array\<Symfony\\Component\\Form\\FormInterface\>\}\.$#'
-			identifier: return.type
-			count: 1
-			path: tests/Resources/Symfony/Controller/FormErrorController.php
