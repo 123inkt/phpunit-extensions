@@ -24,7 +24,7 @@ class FormErrorController extends AbstractController
     public function __invoke(): array
     {
         $form = $this->createForm(FormType::class);
-        /** @var Traversable<FormError> $errors */ // @phpstan-ignore
+        /** @var Traversable<FormError> $errors */ // @phpstan-ignore varTag.nativeType
         $errors = $form->getErrors();
 
         return [
