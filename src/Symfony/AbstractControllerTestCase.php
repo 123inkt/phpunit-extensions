@@ -95,8 +95,6 @@ abstract class AbstractControllerTestCase extends TestCase
 
     /**
      * @param array<string, int|string|object|null> $parameters
-     *
-     * @return InvocationMocker<RouterInterface>
      */
     public function expectGenerateUrl(
         string $route,
@@ -111,7 +109,6 @@ abstract class AbstractControllerTestCase extends TestCase
 
     /**
      * @param array<int, mixed> $arguments
-     * @return InvocationMocker<RouterInterface>
      */
     public function expectGenerateUrlWithConsecutive(array ...$arguments): InvocationMocker|InvocationStubber
     {
@@ -123,8 +120,6 @@ abstract class AbstractControllerTestCase extends TestCase
 
     /**
      * @param array<string, int|string|object|null> $parameters
-     *
-     * @return InvocationMocker<RouterInterface>
      */
     public function expectRedirectToRoute(string $route, array $parameters = [], string $redirectTo = 'redirect'): InvocationMocker|InvocationStubber
     {
