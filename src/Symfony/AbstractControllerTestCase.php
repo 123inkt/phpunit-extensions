@@ -6,6 +6,7 @@ namespace DR\PHPUnitExtensions\Symfony;
 
 use DR\PHPUnitExtensions\Symfony\Helper\FormAssertion;
 use PHPUnit\Framework\MockObject\Builder\InvocationMocker;
+use PHPUnit\Framework\MockObject\InvocationStubber;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,6 +27,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Twig\Environment;
+
 use function DR\PHPUnitExtensions\Mock\consecutive;
 
 /**
@@ -100,7 +102,7 @@ abstract class AbstractControllerTestCase extends TestCase
         string $route,
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
-    ): InvocationMocker {
+    ): InvocationMocker|InvocationStubber {
         $router = $this->createMock(RouterInterface::class);
         $this->container->set('router', $router);
 
@@ -111,7 +113,7 @@ abstract class AbstractControllerTestCase extends TestCase
      * @param array<int, mixed> $arguments
      * @return InvocationMocker<RouterInterface>
      */
-    public function expectGenerateUrlWithConsecutive(array ...$arguments): InvocationMocker
+    public function expectGenerateUrlWithConsecutive(array ...$arguments): InvocationMocker|InvocationStubber
     {
         $router = $this->createMock(RouterInterface::class);
         $this->container->set('router', $router);
@@ -124,7 +126,7 @@ abstract class AbstractControllerTestCase extends TestCase
      *
      * @return InvocationMocker<RouterInterface>
      */
-    public function expectRedirectToRoute(string $route, array $parameters = [], string $redirectTo = 'redirect'): InvocationMocker
+    public function expectRedirectToRoute(string $route, array $parameters = [], string $redirectTo = 'redirect'): InvocationMocker|InvocationStubber
     {
         return $this->expectGenerateUrl($route, $parameters)->willReturn($redirectTo);
     }
