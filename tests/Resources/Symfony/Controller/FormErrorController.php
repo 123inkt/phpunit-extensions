@@ -16,7 +16,7 @@ class FormErrorController extends AbstractController
     /**
      * @return array{
      *     name: string,
-     *     errors: Traversable<FormError>,
+     *     errors: \Symfony\Component\Form\FormErrorIterator<\Symfony\Component\Form\FormError>,
      *     config: FormConfigInterface<null>,
      *     all: FormInterface<null>[]
      * }
