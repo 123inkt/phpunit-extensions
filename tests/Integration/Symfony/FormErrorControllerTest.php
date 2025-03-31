@@ -35,7 +35,7 @@ class FormErrorControllerTest extends AbstractControllerTestCase
         $result = ($this->controller)();
 
         static::assertSame('name', $result['name']);
-        static::assertSame($errors, iterator_to_array($result['errors']));
+        static::assertSame($errors, $result['errors']);
         static::assertSame($config, $result['config']);
         static::assertSame($children, $result['all']);
     }
