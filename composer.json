@@ -16,7 +16,7 @@
         "phpunit/phpunit": "^10.0 || ^11.0 || ^12.0"
     },
     "require-dev": {
-        "digitalrevolution/phpunit-file-coverage-inspection": "^2.0",
+        "digitalrevolution/phpunit-file-coverage-inspection": "^3.0",
         "phpmd/phpmd": "^2.12",
         "phpstan/extension-installer": "^1.2",
         "phpstan/phpstan": "^2.0",
