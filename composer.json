@@ -74,5 +74,12 @@
             "DR\\PHPUnitExtensions\\Tests\\Unit\\": "tests/Unit/",
             "PHPUnit\\Framework\\Attributes\\": "tests/Stub/"
         }
+    },
+    "extra": {
+        "phpstan": {
+            "includes": [
+                "extension.neon"
+            ]
+        }
     }
 }
