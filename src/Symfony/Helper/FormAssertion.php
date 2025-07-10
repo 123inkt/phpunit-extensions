@@ -36,6 +36,16 @@ class FormAssertion
     }
 
     /**
+     * @param string|array<array-key, mixed>|null $submittedData
+     */
+    public function expectSubmit(string|array|null $submittedData, bool $clearMissing = true): self
+    {
+        $this->form->expects(atLeastOnce())->method('submit')->with($submittedData, $clearMissing)->willReturnSelf();
+
+        return $this;
+    }
+
+    /**
      * @param array<string, int|string|float|null> $keyValueData
      */
     public function getWillReturn(array $keyValueData): self
