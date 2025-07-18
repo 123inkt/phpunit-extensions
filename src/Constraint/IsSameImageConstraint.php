@@ -90,22 +90,14 @@ class IsSameImageConstraint extends Constraint
      */
     private function getImageObject($data): Imagick
     {
-        if ($data instanceof SplFileInfo) {
-            // create resource from file
-            $handle = fopen($data->getPathname(), 'rb');
-            assert(is_resource($handle));
-        } elseif (is_string($data)) {
-            // create resource from data string
-            $handle = fopen('php://memory', 'rb+');
-            assert(is_resource($handle));
-            fwrite($handle, $data);
-            fseek($handle, 0);
-        } else {
-            $handle = $data;
-        }
-
         $image = new Imagick();
-        $image->readImageFile($handle);
+        if ($data instanceof SplFileInfo) {
+            $image->readImage($data->getPathname());
+        } elseif (is_string($data)) {
+            $image->readImageBlob($data);
+        } else {
+            $image->readImageFile($data);
+        }
         $image->resetIterator();
 
         return $image;
