@@ -21,19 +21,18 @@ class IsSameImageConstraint extends Constraint
 
     /**
      * @param string|SplFileInfo|resource                                             $expectedImage
-     * @param (Closure(Imagick $diff, Imagick $expected, Imagick $actual): void)|null $diffCallback
+     * @param (Closure(Imagick $diff, Imagick $expected, Imagick $actual): void)|null $diffCallback a callback called after a difference was detected
      */
     public function __construct(private $expectedImage, private ?Closure $diffCallback = null)
     {
     }
 
     /**
-     * @param string|SplFileInfo|resource $other Pass either binary data string, a file path or a resource handle
-     *
      * @throws ExpectationFailedException
      */
     public function matches(mixed $other): bool
     {
+        assert(is_string($other) || is_resource($other) || $other instanceof SplFileInfo);
         if (class_exists('Imagick') === false) {
             $this->fail($this->getFileName($other), "IsSameImageConstraint requires Imagick extension to be installed.");
         }
