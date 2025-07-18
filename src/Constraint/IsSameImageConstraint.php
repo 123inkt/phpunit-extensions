@@ -7,10 +7,14 @@ namespace DR\PHPUnitExtensions\Constraint;
 use Closure;
 use Imagick;
 use ImagickException;
+use InvalidArgumentException;
 use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\ExpectationFailedException;
 use SplFileInfo;
 
+/**
+ * Asserts two images are equal using Imagick image compare.
+ */
 class IsSameImageConstraint extends Constraint
 {
     private ?string $additionalInfo = null;
@@ -139,7 +143,7 @@ class IsSameImageConstraint extends Constraint
         }
 
         if (is_resource($data)) {
-            return stream_get_meta_data($data)['uri'];
+            return stream_get_meta_data($data)['uri'] ?? throw new InvalidArgumentException('Input resource doesn\'t have stream uri');
         }
 
         return 'binary-data-stream';
