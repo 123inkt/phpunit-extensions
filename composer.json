@@ -47,6 +47,7 @@
         "test:integration": "phpunit --testsuite integration"
     },
     "suggest": {
+        "ext-imagick": "Imagick is required for IsSameImageConstraint",
         "symfony/clock": "Symfony clock component is required when using the ClockTestTrait",
         "symfony/form": "Symfony form component is required for testing the controller createForm methods",
         "symfony/framework-bundle": "Symfony framework bundle is required for the AbstractControllerTestCase",
