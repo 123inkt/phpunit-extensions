@@ -10,7 +10,7 @@ use PHPUnit\Framework\Constraint\LogicalNot;
 use PHPUnit\Framework\Exception;
 use SplFileInfo;
 
-trait ImageAsserter
+trait ImageTestTrait
 {
     /**
      * @param string|SplFileInfo|resource $expected Pass either binary data string, a file path or a resource handle
