@@ -14,7 +14,7 @@ trait ImageTestTrait
 {
     /**
      * @param string|SplFileInfo|resource $expected Pass either binary data string, a file path or a resource handle
-     * @param string|SplFileInfo|resource $actual Pass either binary data string, a file path or a resource handle
+     * @param string|SplFileInfo|resource $actual   Pass either binary data string, a file path or a resource handle
      *
      * @throws Exception
      */
@@ -25,7 +25,7 @@ trait ImageTestTrait
 
     /**
      * @param string|SplFileInfo|resource $expected Pass either binary data string, a file path or a resource handle
-     * @param string|SplFileInfo|resource $actual Pass either binary data string, a file path or a resource handle
+     * @param string|SplFileInfo|resource $actual   Pass either binary data string, a file path or a resource handle
      *
      * @throws Exception
      */
@@ -35,7 +35,10 @@ trait ImageTestTrait
     }
 
     /**
-     * @param resource $expectedHandle
+     * @param string|SplFileInfo|resource $expectedHandle
      */
-    abstract protected function getConstraint($expectedHandle): IsSameImageConstraint;
+    protected function getConstraint($expectedHandle): IsSameImageConstraint
+    {
+        return new IsSameImageConstraint($expectedHandle);
+    }
 }
