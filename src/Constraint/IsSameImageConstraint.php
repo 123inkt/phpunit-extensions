@@ -33,9 +33,11 @@ class IsSameImageConstraint extends Constraint
     public function matches(mixed $other): bool
     {
         assert(is_string($other) || is_resource($other) || $other instanceof SplFileInfo);
+        // @codeCoverageIgnoreStart
         if (class_exists('Imagick') === false) {
             $this->fail($this->getFileName($other), "IsSameImageConstraint requires Imagick extension to be installed.");
         }
+        // @codeCoverageIgnoreEnd
 
         try {
             $expected = $this->getImageObject($this->expectedImage);
