@@ -71,7 +71,7 @@ class IsSameImageConstraintTest extends TestCase
         $fileB           = new SplFileInfo($this->imageB);
         $callbackInvoked = false;
 
-        $this->callback = function ($diff, $expected, $actual) use (&$callbackInvoked) : void {
+        $this->callback = function ($diff, $expected, $actual) use (&$callbackInvoked): void {
             static::assertInstanceOf(Imagick::class, $diff);
             static::assertInstanceOf(Imagick::class, $expected);
             static::assertInstanceOf(Imagick::class, $actual);
