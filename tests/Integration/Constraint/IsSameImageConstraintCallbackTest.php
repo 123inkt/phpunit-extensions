@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace DR\PHPUnitExtensions\Tests\Integration\Constraint;
 
-use Closure;
 use DR\PHPUnitExtensions\Constraint\IsSameImageConstraint;
 use DR\PHPUnitExtensions\Trait\ImageTestTrait;
 use Imagick;
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversTrait;
+use PHPUnit\Framework\Constraint\LogicalNot;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 
@@ -21,14 +22,12 @@ class IsSameImageConstraintCallbackTest extends TestCase
 
     private string $imageA;
     private string $imageB;
-    private static ?Closure $callback = null;
 
     protected function setUp(): void
     {
         parent::setUp();
-        self::$callback = null;
-        $this->imageA   = dirname(__DIR__, 2) . '/Resources/Constraint/white-a.png';
-        $this->imageB   = dirname(__DIR__, 2) . '/Resources/Constraint/white-b.png';
+        $this->imageA = dirname(__DIR__, 2) . '/Resources/Constraint/white-a.png';
+        $this->imageB = dirname(__DIR__, 2) . '/Resources/Constraint/white-b.png';
     }
 
     public function testAssertWithCallback(): void
@@ -37,22 +36,14 @@ class IsSameImageConstraintCallbackTest extends TestCase
         $fileB           = new SplFileInfo($this->imageB);
         $callbackInvoked = false;
 
-        self::$callback = function ($diff, $expected, $actual) use (&$callbackInvoked): void {
+        $callback = function ($diff, $expected, $actual) use (&$callbackInvoked): void {
             static::assertInstanceOf(Imagick::class, $diff);
             static::assertInstanceOf(Imagick::class, $expected);
             static::assertInstanceOf(Imagick::class, $actual);
             $callbackInvoked = true;
         };
 
-        static::assertNotSameImage($fileA, $fileB);
+        Assert::assertThat($fileB, new LogicalNot(new IsSameImageConstraint($fileA, $callback)));
         static::assertTrue($callbackInvoked);
-    }
-
-    /**
-     * @param string|SplFileInfo|resource $expectedHandle
-     */
-    protected static function getConstraint($expectedHandle): IsSameImageConstraint
-    {
-        return new IsSameImageConstraint($expectedHandle, self::$callback);
     }
 }
