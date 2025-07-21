@@ -21,12 +21,12 @@ class IsSameImageConstraintCallbackTest extends TestCase
 
     private string $imageA;
     private string $imageB;
-    private ?Closure $callback = null;
+    private static ?Closure $callback = null;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->callback = null;
+        self::$callback = null;
         $this->imageA   = dirname(__DIR__, 2) . '/Resources/Constraint/white-a.png';
         $this->imageB   = dirname(__DIR__, 2) . '/Resources/Constraint/white-b.png';
     }
@@ -37,7 +37,7 @@ class IsSameImageConstraintCallbackTest extends TestCase
         $fileB           = new SplFileInfo($this->imageB);
         $callbackInvoked = false;
 
-        $this->callback = function ($diff, $expected, $actual) use (&$callbackInvoked): void {
+        self::$callback = function ($diff, $expected, $actual) use (&$callbackInvoked): void {
             static::assertInstanceOf(Imagick::class, $diff);
             static::assertInstanceOf(Imagick::class, $expected);
             static::assertInstanceOf(Imagick::class, $actual);
@@ -51,8 +51,8 @@ class IsSameImageConstraintCallbackTest extends TestCase
     /**
      * @param string|SplFileInfo|resource $expectedHandle
      */
-    protected function getConstraint($expectedHandle): IsSameImageConstraint
+    protected static function getConstraint($expectedHandle): IsSameImageConstraint
     {
-        return new IsSameImageConstraint($expectedHandle, $this->callback);
+        return new IsSameImageConstraint($expectedHandle, self::$callback);
     }
 }
