@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DR\PHPUnitExtensions\Constraint;
 
-use Closure;
+use DR\PHPUnitExtensions\Renderer\ImageDiffRendererInterface;
 use Imagick;
 use ImagickException;
 use InvalidArgumentException;
@@ -20,11 +20,10 @@ class IsSameImageConstraint extends Constraint
     private ?string $additionalInfo = null;
 
     /**
-     * @param string|SplFileInfo|resource                                                $expectedImage
-     * @param (Closure(Imagick $diff, Imagick $expected, Imagick $actual): ?string)|null $diffCallback
-     *                                                       a callback called after a difference was detected
+     * @param string|SplFileInfo|resource $expectedImage
+     * @param ?ImageDiffRendererInterface $diffRenderer an optional renderer called after a difference was detected
      */
-    public function __construct(private $expectedImage, private ?Closure $diffCallback = null)
+    public function __construct(private $expectedImage, private ?ImageDiffRendererInterface $diffRenderer = null)
     {
     }
 
@@ -116,12 +115,8 @@ class IsSameImageConstraint extends Constraint
             return true;
         }
 
-        // call callback if present
-        if ($this->diffCallback !== null) {
-            $this->additionalInfo = ($this->diffCallback)($imageDiff, $baseImage, $generatedImage);
-        }
-
-        // report findings
+        // call renderer if present
+        $this->additionalInfo = $this->diffRenderer?->render($imageDiff, $baseImage, $generatedImage);
         $this->additionalInfo ??= 'Imagick found a difference of ' . $difference . '.';
 
         return false;

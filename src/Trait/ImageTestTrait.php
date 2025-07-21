@@ -22,7 +22,7 @@ trait ImageTestTrait
      */
     final public static function assertSameImage($expected, $actual, string $message = ''): void
     {
-        Assert::assertThat($actual, new IsSameImageConstraint($expected, Closure::fromCallable(new ImageDiffRenderer())), $message);
+        Assert::assertThat($actual, new IsSameImageConstraint($expected, new ImageDiffRenderer()), $message);
     }
 
     /**
@@ -33,6 +33,6 @@ trait ImageTestTrait
      */
     final public static function assertNotSameImage($expected, $actual, string $message = ''): void
     {
-        Assert::assertThat($actual, new LogicalNot(new IsSameImageConstraint($expected, Closure::fromCallable(new ImageDiffRenderer()))), $message);
+        Assert::assertThat($actual, new LogicalNot(new IsSameImageConstraint($expected, new ImageDiffRenderer())), $message);
     }
 }

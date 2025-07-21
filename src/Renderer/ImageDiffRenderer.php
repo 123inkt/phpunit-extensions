@@ -9,9 +9,8 @@ use ImagickException;
 
 /**
  * Renders the results IsSameImageConstraint difference to local html file. Can be enabled by setting the `PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_PATH`
- * @internal
  */
-class ImageDiffRenderer
+class ImageDiffRenderer implements ImageDiffRendererInterface
 {
     private readonly ?string $outputPath;
 
@@ -23,7 +22,7 @@ class ImageDiffRenderer
     /**
      * @throws ImagickException
      */
-    public function __invoke(Imagick $diff, Imagick $expected, Imagick $actual): ?string
+    public function render(Imagick $diff, Imagick $expected, Imagick $actual): ?string
     {
         if ($this->outputPath === null) {
             return null;
