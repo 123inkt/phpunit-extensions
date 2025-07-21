@@ -9,6 +9,7 @@ use DR\PHPUnitExtensions\Constraint\IsSameImageConstraint;
 use DR\PHPUnitExtensions\Trait\ImageTestTrait;
 use Imagick;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 
@@ -20,14 +21,16 @@ class IsSameImageConstraintTest extends TestCase
 
     private string $imageA;
     private string $imageB;
+    private string $imageMulti;
     private ?Closure $callback = null;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->callback = null;
-        $this->imageA   = dirname(__DIR__, 2) . '/Resources/Constraint/white-a.png';
-        $this->imageB   = dirname(__DIR__, 2) . '/Resources/Constraint/white-b.png';
+        $this->callback   = null;
+        $this->imageA     = dirname(__DIR__, 2) . '/Resources/Constraint/white-a.png';
+        $this->imageB     = dirname(__DIR__, 2) . '/Resources/Constraint/white-b.png';
+        $this->imageMulti = dirname(__DIR__, 2) . '/Resources/Constraint/multi-image.gif';
     }
 
     public function testAssertSplFileInfo(): void
@@ -80,6 +83,23 @@ class IsSameImageConstraintTest extends TestCase
 
         static::assertNotSameImage($fileA, $fileB);
         static::assertTrue($callbackInvoked);
+    }
+
+    public function testAssertWithBadImage(): void
+    {
+        $this->expectException(ExpectationFailedException::class);
+        $this->expectExceptionMessage('Image compare failed due to Imagick error');
+        static::assertSameImage('foobar', 'foobar');
+    }
+
+    public function testAssertIncorrectImageCount(): void
+    {
+        $fileA = new SplFileInfo($this->imageA);
+        $fileB = new SplFileInfo($this->imageMulti);
+
+        $this->expectException(ExpectationFailedException::class);
+        $this->expectExceptionMessage('Expected an image count of 1 but received count of 2');
+        static::assertNotSameImage($fileA, $fileB);
     }
 
     /**
