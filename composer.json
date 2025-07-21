@@ -30,7 +30,8 @@
         "symfony/framework-bundle": "^6.0||^7.0",
         "symfony/security-core": "^6.0||^7.0",
         "symfony/twig-bundle": "^6.0||^7.0",
-        "symfony/validator": "^6.0||^7.0"
+        "symfony/validator": "^6.0||^7.0",
+        "tecnickcom/tcpdf": "^6.0"
     },
     "scripts": {
         "baseline": ["@baseline:phpstan", "@baseline:phpmd"],
@@ -48,6 +49,7 @@
     },
     "suggest": {
         "ext-imagick": "Imagick is required for IsSameImageConstraint",
+        "tecnickcom/tcpdf": "TCPDF is required for PdfTestTrait",
         "symfony/clock": "Symfony clock component is required when using the ClockTestTrait",
         "symfony/form": "Symfony form component is required for testing the controller createForm methods",
         "symfony/framework-bundle": "Symfony framework bundle is required for the AbstractControllerTestCase",
