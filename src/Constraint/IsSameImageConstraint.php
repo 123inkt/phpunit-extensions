@@ -20,8 +20,9 @@ class IsSameImageConstraint extends Constraint
     private ?string $additionalInfo = null;
 
     /**
-     * @param string|SplFileInfo|resource                                             $expectedImage
-     * @param (Closure(Imagick $diff, Imagick $expected, Imagick $actual): void)|null $diffCallback a callback called after a difference was detected
+     * @param string|SplFileInfo|resource                                                $expectedImage
+     * @param (Closure(Imagick $diff, Imagick $expected, Imagick $actual): ?string)|null $diffCallback
+     *                                                       a callback called after a difference was detected
      */
     public function __construct(private $expectedImage, private ?Closure $diffCallback = null)
     {
@@ -117,11 +118,11 @@ class IsSameImageConstraint extends Constraint
 
         // call callback if present
         if ($this->diffCallback !== null) {
-            ($this->diffCallback)($imageDiff, $baseImage, $generatedImage);
+            $this->additionalInfo = ($this->diffCallback)($imageDiff, $baseImage, $generatedImage);
         }
 
         // report findings
-        $this->additionalInfo = 'Imagick found a difference of ' . $difference . '.';
+        $this->additionalInfo ??= 'Imagick found a difference of ' . $difference . '.';
 
         return false;
     }

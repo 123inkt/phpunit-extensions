@@ -40,7 +40,7 @@ class ImageDiffRenderer
         $actual->writeImage($this->outputPath . '/actual.png');
         file_put_contents($this->outputPath . '/index.html', $this->createHtml());
 
-        return $this->outputPath . '/index.html';
+        return 'View the difference at ' . $this->outputPath . '/index.html';
     }
 
     private function createHtml(): string
