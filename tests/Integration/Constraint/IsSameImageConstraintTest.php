@@ -9,12 +9,13 @@ use DR\PHPUnitExtensions\Constraint\IsSameImageConstraint;
 use DR\PHPUnitExtensions\Trait\ImageTestTrait;
 use Imagick;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 
 #[CoversClass(IsSameImageConstraint::class)]
-#[CoversClass(ImageTestTrait::class)]
+#[CoversTrait(ImageTestTrait::class)]
 class IsSameImageConstraintTest extends TestCase
 {
     use ImageTestTrait;
