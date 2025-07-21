@@ -110,7 +110,7 @@ class IsSameImageConstraint extends Constraint
      */
     private function compareImages(Imagick $baseImage, Imagick $generatedImage): bool
     {
-        [$imageDiff, $difference] = $baseImage->compareImages($generatedImage, 1);
+        [$imageDiff, $difference] = $baseImage->compareImages($generatedImage, Imagick::METRIC_ABSOLUTEERRORMETRIC);
         if ($difference === 0.0) {
             return true;
         }
@@ -136,7 +136,7 @@ class IsSameImageConstraint extends Constraint
         }
 
         if (is_resource($data)) {
-            return stream_get_meta_data($data)['uri'] ?? throw new InvalidArgumentException('Input resource doesn\'t have stream uri');
+            return stream_get_meta_data($data)['uri'] ?? throw new InvalidArgumentException('Input resource does not have a stream URI');
         }
 
         return 'binary-data-stream';
