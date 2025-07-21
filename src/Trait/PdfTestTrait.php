@@ -12,8 +12,6 @@ use TCPDF;
 
 trait PdfTestTrait
 {
-    use ImageTestTrait;
-
     /**
      * @param string|SplFileInfo|resource|TCPDF $expected binary data string, a file path, a resource handle or a TCPDF instance to compare to
      */
