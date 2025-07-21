@@ -16,13 +16,31 @@ class PdfTestTraitTest extends TestCase
     private string $successPdfFile = __DIR__ . '/../../Resources/Trait/test-success.pdf';
     private string $failedPdfFile = __DIR__ . '/../../Resources/Trait/test-failed.pdf';
 
-    public function testAssertSamePDF(): void
+    public function testAssertSamePdf(): void
     {
-        $pdfA = new SplFileInfo($this->successPdfFile);
-        $pdfB = new SplFileInfo($this->successPdfFile);
+        $pdf = new SplFileInfo($this->successPdfFile);
+        static::assertSamePdf($pdf, $this->createPdf());
+    }
 
-        static::assertSamePdf($pdfA, $this->createPdf());
-        static::assertNotSamePdf($pdfB, $this->createPdf());
+    public function testAssertNotSamePdf(): void
+    {
+        $pdf = new SplFileInfo($this->failedPdfFile);
+        static::assertNotSamePdf($pdf, $this->createPdf());
+    }
+
+    public function testAssertOnePdfIsEqualToTheOther(): void
+    {
+        $pdfA = $this->createPdf();
+        $pdfB = $this->createPdf();
+        static::assertSamePdf($pdfA, $pdfB);
+    }
+
+    public function testAssertOnePdfIsNotSameToTheOther(): void
+    {
+        $pdfA = $this->createPdf();
+        $pdfB = $this->createPdf();
+        $pdfB->writeHTML('<b>Changed</b>');
+        static::assertNotSamePdf($pdfA, $pdfB);
     }
 
     private function createPdf(): TCPDF

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace DR\PHPUnitExtensions\Trait;
 
+use Closure;
 use DR\PHPUnitExtensions\Constraint\IsSameImageConstraint;
+use DR\PHPUnitExtensions\Renderer\ImageDiffRenderer;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\LogicalNot;
 use SplFileInfo;
@@ -21,7 +23,7 @@ trait PdfTestTrait
             $expected = $expected->Output('', 'S');
         }
 
-        Assert::assertThat($actual->Output('', 'S'), new IsSameImageConstraint($expected), $message);
+        Assert::assertThat($actual->Output('', 'S'), new IsSameImageConstraint($expected, Closure::fromCallable(new ImageDiffRenderer())), $message);
     }
 
     /**
@@ -33,6 +35,10 @@ trait PdfTestTrait
             $expected = $expected->Output('', 'S');
         }
 
-        Assert::assertThat($actual->Output('', 'S'), new LogicalNot(new IsSameImageConstraint($expected)), $message);
+        Assert::assertThat(
+            $actual->Output('', 'S'),
+            new LogicalNot(new IsSameImageConstraint($expected, Closure::fromCallable(new ImageDiffRenderer()))),
+            $message
+        );
     }
 }

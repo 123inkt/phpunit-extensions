@@ -51,12 +51,12 @@ class ImageDiffRenderer
 <head>
     <style>
         fieldset {
-            width: 300px;
             float: left;
         }
 
         fieldset > img {
-            max-width: 100%;
+            display: block;
+            max-width: 400px;
         }
     </style>
     <title>IsSameImageConstraint output</title>
