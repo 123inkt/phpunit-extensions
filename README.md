@@ -126,7 +126,7 @@ each test. The trait also provides methods to get the current time as timestamp 
 - `self::assertSameTime()`
 
 ### ImageTestTrait
-The `ImageTestTrait` provides methods to compare to images by binary string, `SplFileInfo` or resource. (Requires Imagick)
+The `ImageTestTrait` provides methods to compare two images by `binary string`, `SplFileInfo` or `resource`. (Requires Imagick)
 
 - `self::assertSameImage(string|SplFileInfo|resource, string|SplFileInfo|resource)`
 - `self::assertNotSameImage(string|SplFileInfo|resource, string|SplFileInfo|resource)`
