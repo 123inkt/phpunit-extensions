@@ -16,7 +16,7 @@ trait PdfTestTrait
     /**
      * @param string|SplFileInfo|resource|TCPDF $expected binary data string, a file path, a resource handle or a TCPDF instance to compare to
      */
-    final public function assertSamePDF($expected, TCPDF $actual, string $message = ''): void
+    final public function assertSamePdf($expected, TCPDF $actual, string $message = ''): void
     {
         if ($expected instanceof TCPDF) {
             $expected = $expected->Output('', 'S');
@@ -28,7 +28,7 @@ trait PdfTestTrait
     /**
      * @param string|SplFileInfo|resource|TCPDF $expected binary data string, a file path, a resource handle or a TCPDF instance to compare to
      */
-    final public function assertNotSamePDF($expected, TCPDF $actual, string $message = ''): void
+    final public function assertNotSamePdf($expected, TCPDF $actual, string $message = ''): void
     {
         if ($expected instanceof TCPDF) {
             $expected = $expected->Output('', 'S');
