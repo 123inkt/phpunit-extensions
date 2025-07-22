@@ -134,12 +134,11 @@ The `ImageTestTrait` provides methods to compare two images by `binary string`, 
 - `self::assertNotSameImage(string|SplFileInfo|resource, string|SplFileInfo|resource)`
 
 ### PdfTestTrait
-The `PdfTestTrait` provides methods to compare a TCPDF object against an image of `binary string`, `SplFileInfo`, `resource` or another TCPDF file. 
-(Requires `Imagick` and `TCPDF`)
+The `PdfTestTrait` provides methods to compare a `TCPDF` object against an image of `binary string`, `SplFileInfo`, `resource` or another `TCPDF` file. (Requires `Imagick` and `TCPDF`)
 
 **Methods**
 - `self::assertSamePdf(string|SplFileInfo|resource|TCPDF, TCPDF)`
-- `self::assertNotSameImage(string|SplFileInfo|resource|TCPDF, TCPDF)`.
+- `self::assertNotSamePdf(string|SplFileInfo|resource|TCPDF, TCPDF)`.
 
 The environment variable `PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_PATH` can be set to a directory where a `diff.html` will be generated which will
 show the differences.
