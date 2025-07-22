@@ -125,6 +125,24 @@ each test. The trait also provides methods to get the current time as timestamp 
 - `self::assertNow()`
 - `self::assertSameTime()`
 
+### ImageTestTrait
+The `ImageTestTrait` provides methods to compare two images by `binary string`, `SplFileInfo` or `resource`. (Requires `Imagick`). Internally 
+`Imagick::compareImages()` is used to compare the images and therefore supports various image formats such as PNG, JPEG, GIF, PDF and more. 
+
+**Methods**
+- `self::assertSameImage(string|SplFileInfo|resource, string|SplFileInfo|resource)`
+- `self::assertNotSameImage(string|SplFileInfo|resource, string|SplFileInfo|resource)`
+
+### PdfTestTrait
+The `PdfTestTrait` provides methods to compare a `TCPDF` object against an image of `binary string`, `SplFileInfo`, `resource` or another `TCPDF` file. (Requires `Imagick` with `ghostscript` and `TCPDF`)
+
+**Methods**
+- `self::assertSamePdf(string|SplFileInfo|resource|TCPDF, TCPDF)`
+- `self::assertNotSamePdf(string|SplFileInfo|resource|TCPDF, TCPDF)`.
+
+The environment variable `PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_PATH` can be set to a directory where a `diff.html` will be generated which will
+show the differences.
+
 ## About us
 
 At 123inkt (Part of Digital Revolution B.V.), every day more than 50 development professionals are working on improving our internal ERP 

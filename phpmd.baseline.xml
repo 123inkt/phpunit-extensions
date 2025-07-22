@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <phpmd-baseline>
+  <violation rule="PHPMD\Rule\Controversial\Superglobals" file="src/Renderer/ImageDiffRenderer.php" method="__construct"/>
   <violation rule="PHPMD\Rule\Design\CouplingBetweenObjects" file="src/Symfony/AbstractControllerTestCase.php"/>
   <violation rule="PHPMD\Rule\Design\TooManyPublicMethods" file="src/Symfony/Helper/ConstraintViolationBuilderAssertion.php"/>
 </phpmd-baseline>
