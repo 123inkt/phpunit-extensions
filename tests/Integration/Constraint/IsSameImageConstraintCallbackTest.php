@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace DR\PHPUnitExtensions\Tests\Integration\Constraint;
 
 use DR\PHPUnitExtensions\Constraint\IsSameImageConstraint;
+use DR\PHPUnitExtensions\Renderer\ImageDiffRendererInterface;
 use DR\PHPUnitExtensions\Trait\ImageTestTrait;
-use Imagick;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversTrait;
@@ -30,20 +30,14 @@ class IsSameImageConstraintCallbackTest extends TestCase
         $this->imageB = dirname(__DIR__, 2) . '/Resources/Constraint/white-b.png';
     }
 
-    public function testAssertWithCallback(): void
+    public function testAssertWithRenderer(): void
     {
-        $fileA           = new SplFileInfo($this->imageA);
-        $fileB           = new SplFileInfo($this->imageB);
-        $callbackInvoked = false;
+        $fileA = new SplFileInfo($this->imageA);
+        $fileB = new SplFileInfo($this->imageB);
 
-        $callback = function ($diff, $expected, $actual) use (&$callbackInvoked): void {
-            static::assertInstanceOf(Imagick::class, $diff);
-            static::assertInstanceOf(Imagick::class, $expected);
-            static::assertInstanceOf(Imagick::class, $actual);
-            $callbackInvoked = true;
-        };
+        $renderer = $this->createMock(ImageDiffRendererInterface::class);
+        $renderer->expects(static::once())->method('render')->willReturn('rendered');
 
-        Assert::assertThat($fileB, new LogicalNot(new IsSameImageConstraint($fileA, $callback)));
-        static::assertTrue($callbackInvoked);
+        Assert::assertThat($fileB, new LogicalNot(new IsSameImageConstraint($fileA, $renderer)));
     }
 }
