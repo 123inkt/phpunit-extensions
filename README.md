@@ -134,7 +134,7 @@ The `ImageTestTrait` provides methods to compare two images by `binary string`, 
 - `self::assertNotSameImage(string|SplFileInfo|resource, string|SplFileInfo|resource)`
 
 ### PdfTestTrait
-The `PdfTestTrait` provides methods to compare a `TCPDF` object against an image of `binary string`, `SplFileInfo`, `resource` or another `TCPDF` file. (Requires `Imagick` and `TCPDF`)
+The `PdfTestTrait` provides methods to compare a `TCPDF` object against an image of `binary string`, `SplFileInfo`, `resource` or another `TCPDF` file. (Requires `Imagick` with `ghostscript` and `TCPDF`)
 
 **Methods**
 - `self::assertSamePdf(string|SplFileInfo|resource|TCPDF, TCPDF)`
