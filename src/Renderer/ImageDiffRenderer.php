@@ -33,13 +33,20 @@ class ImageDiffRenderer implements ImageDiffRendererInterface
             mkdir($this->outputPath, 0777, true);
         }
 
-        // write images and html
-        $diff->writeImage($this->outputPath . '/diff.png');
-        $expected->writeImage($this->outputPath . '/expected.png');
-        $actual->writeImage($this->outputPath . '/actual.png');
-        file_put_contents($this->outputPath . '/index.html', $this->createHtml());
+        $expected->setImageFormat('png');
+        $actual->setImageFormat('png');
+        $diff->setImageFormat('png');
 
-        return 'View the difference at ' . $this->outputPath . '/index.html';
+        // write images and html
+        $replaces = [
+            '{{ expected }}' => base64_encode($expected->getImageBlob()),
+            '{{ actual }}'   => base64_encode($actual->getImageBlob()),
+            '{{ diff }}'     => base64_encode($diff->getImageBlob()),
+        ];
+        $html     = str_replace(array_keys($replaces), array_values($replaces), $this->createHtml());
+        file_put_contents($this->outputPath . DIRECTORY_SEPARATOR . 'diff.html', $html);
+
+        return 'View the differences at ' . $this->outputPath . '/diff.html';
     }
 
     private function createHtml(): string
@@ -63,15 +70,15 @@ class ImageDiffRenderer implements ImageDiffRendererInterface
 <body>
 <fieldset>
     <legend>Expected</legend>
-    <img src="expected.png" alt="expected">
+    <img src="data:image/png;base64,{{ expected }}" alt="expected">
 </fieldset>
 <fieldset>
     <legend>Actual</legend>
-    <img src="actual.png" alt="actual">
+    <img src="data:image/png;base64,{{ actual }}" alt="actual">
 </fieldset>
 <fieldset>
     <legend>Difference</legend>
-    <img src="diff.png" alt="diff">
+    <img src="data:image/png;base64,{{ diff }}" alt="diff">
 </fieldset>
 </body>
 </html>
