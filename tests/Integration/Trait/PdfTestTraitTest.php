@@ -6,11 +6,13 @@ namespace DR\PHPUnitExtensions\Tests\Integration\Trait;
 
 use DR\PHPUnitExtensions\Trait\PdfTestTrait;
 use PHPUnit\Framework\Attributes\CoversTrait;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use TCPDF;
 
 #[CoversTrait(PdfTestTrait::class)]
+#[RequiresPhpExtension('imagick')]
 class PdfTestTraitTest extends TestCase
 {
     use PdfTestTrait;

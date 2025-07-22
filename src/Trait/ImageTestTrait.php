@@ -15,8 +15,8 @@ use SplFileInfo;
 trait ImageTestTrait
 {
     /**
-     * @param string|SplFileInfo|resource $expected Pass either binary data string, a file path or a resource handle
-     * @param string|SplFileInfo|resource $actual   Pass either binary data string, a file path or a resource handle
+     * @param string|SplFileInfo|resource $expected Pass either binary data string, a file path as SplFileInfo or a resource handle
+     * @param string|SplFileInfo|resource $actual   Pass either binary data string, a file path as SplFileInfo or a resource handle
      *
      * @throws Exception
      */
@@ -26,8 +26,8 @@ trait ImageTestTrait
     }
 
     /**
-     * @param string|SplFileInfo|resource $expected Pass either binary data string, a file path or a resource handle
-     * @param string|SplFileInfo|resource $actual   Pass either binary data string, a file path or a resource handle
+     * @param string|SplFileInfo|resource $expected Pass either binary data string, a file path as SplFileInfo or a resource handle
+     * @param string|SplFileInfo|resource $actual   Pass either binary data string, a file path as SplFileInfo or a resource handle
      *
      * @throws Exception
      */

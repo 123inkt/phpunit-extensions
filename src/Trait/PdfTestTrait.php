@@ -14,7 +14,8 @@ use TCPDF;
 trait PdfTestTrait
 {
     /**
-     * @param string|SplFileInfo|resource|TCPDF $expected binary data string, a file path, a resource handle or a TCPDF instance to compare to
+     * @param string|SplFileInfo|resource|TCPDF $expected binary data string, a file path as SplFileInfo , a resource handle or a TCPDF
+     *                                                    instance to compare to
      */
     final public function assertSamePdf($expected, TCPDF $actual, string $message = ''): void
     {
@@ -26,7 +27,8 @@ trait PdfTestTrait
     }
 
     /**
-     * @param string|SplFileInfo|resource|TCPDF $expected binary data string, a file path, a resource handle or a TCPDF instance to compare to
+     * @param string|SplFileInfo|resource|TCPDF $expected binary data string, a file path as SplFileInfo, a resource handle or a TCPDF
+     *                                                    instance to compare to
      */
     final public function assertNotSamePdf($expected, TCPDF $actual, string $message = ''): void
     {

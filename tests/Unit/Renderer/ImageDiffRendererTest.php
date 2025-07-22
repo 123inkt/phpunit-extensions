@@ -8,9 +8,11 @@ use DR\PHPUnitExtensions\Renderer\ImageDiffRenderer;
 use Imagick;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ImageDiffRenderer::class)]
+#[RequiresPhpExtension('imagick')]
 class ImageDiffRendererTest extends TestCase
 {
     private string $path;

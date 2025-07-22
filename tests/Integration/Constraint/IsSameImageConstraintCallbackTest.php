@@ -10,12 +10,14 @@ use DR\PHPUnitExtensions\Trait\ImageTestTrait;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversTrait;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use PHPUnit\Framework\Constraint\LogicalNot;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 
 #[CoversClass(IsSameImageConstraint::class)]
 #[CoversTrait(ImageTestTrait::class)]
+#[RequiresPhpExtension('imagick')]
 class IsSameImageConstraintCallbackTest extends TestCase
 {
     use ImageTestTrait;
