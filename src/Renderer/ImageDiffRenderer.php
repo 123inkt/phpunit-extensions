@@ -37,7 +37,7 @@ class ImageDiffRenderer implements ImageDiffRendererInterface
         $actual->setImageFormat('png');
         $diff->setImageFormat('png');
 
-        // write images and html
+        // render html
         $replaces = [
             '{{ expected }}' => base64_encode($expected->getImageBlob()),
             '{{ actual }}'   => base64_encode($actual->getImageBlob()),
