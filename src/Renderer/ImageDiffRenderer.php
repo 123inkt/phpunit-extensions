@@ -16,7 +16,9 @@ class ImageDiffRenderer implements ImageDiffRendererInterface
 
     public function __construct(?string $outputPath = null)
     {
-        $this->outputPath = $outputPath ?? $_SERVER['PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_PATH'] ?? null;
+        $outputPath ??= $_SERVER['PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_PATH'] ?? null;
+        assert(is_string($outputPath) || $outputPath === null, 'PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_PATH must be a string or null');
+        $this->outputPath = $outputPath;
     }
 
     /**
