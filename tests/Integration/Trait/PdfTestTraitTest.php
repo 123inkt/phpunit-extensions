@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DR\PHPUnitExtensions\Tests\Integration\Trait;
 
 use DR\PHPUnitExtensions\Trait\PdfTestTrait;
