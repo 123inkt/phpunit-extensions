@@ -143,7 +143,7 @@ The `PdfTestTrait` provides methods to compare a `TCPDF` object against an image
 **For both ImageTestTrait and PdfTestTrait:**
 
 The environment variable `PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_PATH` can be set to a directory where a `diff.html` will be generated which will
-show the differences. Optionally, the environment variable `PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_URL` can be set to to inform the user where
+show the differences. Optionally, the environment variable `PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_URL` can be set to inform the user where
 to find the outputted `diff.html` file. This is useful when running tests in a CI environment.
 
 ## About us
