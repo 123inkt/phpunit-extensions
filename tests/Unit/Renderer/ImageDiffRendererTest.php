@@ -59,4 +59,22 @@ class ImageDiffRendererTest extends TestCase
         static::assertNull($result);
         static::assertFileDoesNotExist($this->path . '/pdf/diff.html');
     }
+
+    public function testRenderShouldWithOutputUrl(): void
+    {
+        $diff = $this->createMock(Imagick::class);
+        $diff->expects(static::once())->method('setImageFormat')->with('png');
+        $diff->expects(static::once())->method('getImageBlob')->willReturn('diff');
+
+        $expected = $this->createMock(Imagick::class);
+        $expected->expects(static::once())->method('setImageFormat')->with('png');
+        $expected->expects(static::once())->method('getImageBlob')->willReturn('expected');
+
+        $actual = $this->createMock(Imagick::class);
+        $actual->expects(static::once())->method('setImageFormat')->with('png');
+        $actual->expects(static::once())->method('getImageBlob')->willReturn('actual');
+
+        $result = (new ImageDiffRenderer($this->path . '/pdf', 'https://example.com/'))->render($diff, $expected, $actual);
+        static::assertSame('View the differences at https://example.com/diff.html', $result);
+    }
 }

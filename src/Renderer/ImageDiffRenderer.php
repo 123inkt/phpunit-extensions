@@ -20,11 +20,11 @@ class ImageDiffRenderer implements ImageDiffRendererInterface
     {
         $outputPath ??= $_SERVER['PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_PATH'] ?? null;
         assert(is_string($outputPath) || $outputPath === null, 'PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_PATH must be a string or null');
-        $this->outputPath = $outputPath;
+        $this->outputPath = $outputPath !== null ? rtrim($outputPath, '/\\') : null;
 
         $outputUrl ??= $_SERVER['PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_URL'] ?? null;
         assert(is_string($outputUrl) || $outputUrl === null, 'PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_URL must be a string or null');
-        $this->outputUrl = $outputUrl;
+        $this->outputUrl = $outputUrl !== null ? rtrim($outputUrl, '/') : null;
     }
 
     /**
