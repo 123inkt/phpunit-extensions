@@ -54,7 +54,7 @@ class ImageDiffRenderer implements ImageDiffRendererInterface
         $html     = str_replace(array_keys($replaces), array_values($replaces), $this->createHtml());
         file_put_contents($this->outputPath . DIRECTORY_SEPARATOR . 'diff.html', $html);
 
-        return 'View the differences at ' . ($this->outputUrl === null ? realpath($this->outputPath) : $this->outputUrl) . '/diff.html';
+        return 'View the differences at ' . ($this->outputUrl === null ? $this->outputPath : $this->outputUrl) . '/diff.html';
     }
 
     private function createHtml(): string
