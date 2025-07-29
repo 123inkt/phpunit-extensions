@@ -9,16 +9,22 @@ use ImagickException;
 
 /**
  * Renders the results IsSameImageConstraint difference to local html file. Can be enabled by setting the `PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_PATH`
+ * Optionally an output url can be set which will be used to notify the user where to find the rendered diff.
  */
 class ImageDiffRenderer implements ImageDiffRendererInterface
 {
     private readonly ?string $outputPath;
+    private readonly ?string $outputUrl;
 
-    public function __construct(?string $outputPath = null)
+    public function __construct(?string $outputPath = null, ?string $outputUrl = null)
     {
         $outputPath ??= $_SERVER['PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_PATH'] ?? null;
         assert(is_string($outputPath) || $outputPath === null, 'PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_PATH must be a string or null');
         $this->outputPath = $outputPath;
+
+        $outputUrl ??= $_SERVER['PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_URL'] ?? null;
+        assert(is_string($outputUrl) || $outputUrl === null, 'PHPUNIT_EXTENSIONS_IMAGE_DIFF_OUTPUT_URL must be a string or null');
+        $this->outputUrl = $outputUrl;
     }
 
     /**
@@ -48,7 +54,7 @@ class ImageDiffRenderer implements ImageDiffRendererInterface
         $html     = str_replace(array_keys($replaces), array_values($replaces), $this->createHtml());
         file_put_contents($this->outputPath . DIRECTORY_SEPARATOR . 'diff.html', $html);
 
-        return 'View the differences at ' . $this->outputPath . '/diff.html';
+        return 'View the differences at ' . ($this->outputUrl === null ? $this->outputPath : $this->outputUrl) . '/diff.html';
     }
 
     private function createHtml(): string
