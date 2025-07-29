@@ -60,7 +60,7 @@ class ImageDiffRendererTest extends TestCase
         static::assertFileDoesNotExist($this->path . '/pdf/diff.html');
     }
 
-    public function testRenderShouldWithOutputUrl(): void
+    public function testRenderShouldShowOutputUrl(): void
     {
         $diff = $this->createMock(Imagick::class);
         $diff->expects(static::once())->method('setImageFormat')->with('png');
