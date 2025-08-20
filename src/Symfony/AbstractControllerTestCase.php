@@ -55,7 +55,18 @@ abstract class AbstractControllerTestCase extends TestCase
         $this->container->set('security.token_storage', $storage);
     }
 
+    /**
+     * Alias of expectIsGranted
+     * Symfony has the method `denyAccessUnlessGranted` in the AbstractController class to call isGranted
+     * and throw an exception if the access is denied.
+     * @see expectIsGranted()
+     */
     public function expectDenyAccessUnlessGranted(string $attribute, mixed $subject = null, bool $granted = true): void
+    {
+        $this->expectIsGranted($attribute, $subject, $granted);
+    }
+
+    public function expectIsGranted(string $attribute, mixed $subject = null, bool $granted = true): void
     {
         $checker = $this->createMock(AuthorizationCheckerInterface::class);
         $checker->expects(self::atLeastOnce())->method('isGranted')->with($attribute, $subject)->willReturn($granted);
