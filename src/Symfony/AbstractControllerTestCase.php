@@ -55,6 +55,14 @@ abstract class AbstractControllerTestCase extends TestCase
         $this->container->set('security.token_storage', $storage);
     }
 
+    public function expectIsGranted(string $attribute, mixed $subject = null, bool $granted = true): void
+    {
+        $checker = $this->createMock(AuthorizationCheckerInterface::class);
+        $checker->expects(self::atLeastOnce())->method('isGranted')->with($attribute, $subject)->willReturn($granted);
+
+        $this->container->set('security.authorization_checker', $checker);
+    }
+
     /**
      * Alias of expectIsGranted
      * Symfony has the method `denyAccessUnlessGranted` in the AbstractController class to call isGranted
@@ -64,14 +72,6 @@ abstract class AbstractControllerTestCase extends TestCase
     public function expectDenyAccessUnlessGranted(string $attribute, mixed $subject = null, bool $granted = true): void
     {
         $this->expectIsGranted($attribute, $subject, $granted);
-    }
-
-    public function expectIsGranted(string $attribute, mixed $subject = null, bool $granted = true): void
-    {
-        $checker = $this->createMock(AuthorizationCheckerInterface::class);
-        $checker->expects(self::atLeastOnce())->method('isGranted')->with($attribute, $subject)->willReturn($granted);
-
-        $this->container->set('security.authorization_checker', $checker);
     }
 
     /**

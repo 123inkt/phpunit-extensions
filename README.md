@@ -46,10 +46,12 @@ class MyControllerTest extends AbstractControllerTestCase
 
 **Methods**
 - `expectGetUser`
+- `expectIsGranted`
 - `expectDenyAccessUnlessGranted`
 - `expectCreateForm`
 - `expectAddFlash`
 - `expectGenerateUrl`
+- `expectGenerateUrlWithConsecutive`
 - `expectRedirectToRoute`
 - `expectForward`
 - `expectRender`
