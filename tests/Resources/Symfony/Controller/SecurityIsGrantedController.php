@@ -12,7 +12,7 @@ class SecurityIsGrantedController extends AbstractController
     public function __invoke(): Response
     {
         if ($this->isGranted("ROLE_SECURITY") === false) {
-            return new Response("not granted");
+            return new Response("Not granted");
         }
 
         return new Response("Granted");
