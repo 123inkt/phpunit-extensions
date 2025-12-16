@@ -18,7 +18,6 @@
     "require-dev": {
         "digitalrevolution/phpunit-file-coverage-inspection": "^3.0",
         "mikey179/vfsstream": "^1.6.12",
-        "phpmd/phpmd": "^2.12",
         "phpstan/extension-installer": "^1.2",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
@@ -26,12 +25,12 @@
         "phpstan/phpstan-symfony": "^2.0",
         "roave/security-advisories": "dev-latest",
         "squizlabs/php_codesniffer": "^4.0",
-        "symfony/clock": "8.0.0",
-        "symfony/form": "8.0.1",
-        "symfony/framework-bundle": "8.0.1",
-        "symfony/security-core": "8.0.0",
-        "symfony/twig-bundle": "8.0.0",
-        "symfony/validator": "8.0.2",
+        "symfony/clock": "^6.4||^7.0||^8.0",
+        "symfony/form": "^6.0||^7.0||^8.0",
+        "symfony/framework-bundle": "^6.0||^7.0||^8.0",
+        "symfony/security-core": "^6.0||^7.0||^8.0",
+        "symfony/twig-bundle": "^6.0||^7.0||^8.0",
+        "symfony/validator": "^6.0||^7.0||^8.0",
         "tecnickcom/tcpdf": "^6.0"
     },
     "scripts": {
