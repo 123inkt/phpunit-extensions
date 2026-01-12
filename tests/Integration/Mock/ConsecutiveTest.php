@@ -15,10 +15,6 @@ use PHPUnit\Framework\TestCase;
 
 use function DR\PHPUnitExtensions\Mock\consecutive;
 
-/**
- * @covers \DR\PHPUnitExtensions\Mock\ConsecutiveParameters
- * @covers \DR\PHPUnitExtensions\Mock\consecutive
- */
 #[CoversClass(ConsecutiveParameters::class)]
 #[CoversFunction('DR\PHPUnitExtensions\Mock\consecutive')]
 class ConsecutiveTest extends TestCase
@@ -26,7 +22,7 @@ class ConsecutiveTest extends TestCase
     public function testConsecutiveSingle(): void
     {
         $mock = $this->createMock(MockInterface::class);
-        $mock->expects(self::exactly(2))
+        $mock->expects($this->exactly(2))
             ->method('myMethodA')
             ->with(...consecutive([123], [456]));
 
@@ -38,7 +34,7 @@ class ConsecutiveTest extends TestCase
     public function testConsecutiveDoubleArguments(): void
     {
         $mock = $this->createMock(MockInterface::class);
-        $mock->expects(self::exactly(2))
+        $mock->expects($this->exactly(2))
             ->method('myMethodB')
             ->with(...consecutive([123, 'Sherlock'], [456, 'Watson']));
 
@@ -50,15 +46,14 @@ class ConsecutiveTest extends TestCase
     public function testConsecutiveUnevenArguments(): void
     {
         $mock = $this->createMock(MockInterface::class);
-        $mock->expects(self::exactly(4))
+        $mock->expects($this->exactly(3))
             ->method('myMethodB')
-            ->with(...consecutive([123], [456, 'Watson'], [111], [222]));
+            ->with(...consecutive([123], [456, 'Watson'], [111]));
 
         $consecutiveMock = new ConsecutiveMock($mock);
         $consecutiveMock->myMethodB(123, 'Sherlock');
         $consecutiveMock->myMethodB(456, 'Watson');
         $consecutiveMock->myMethodB(111, 'Mycroft');
-        $consecutiveMock->myMethodB(222, 'Moriarty');
     }
 
     public function testConsecutiveMinimumOfOneArguments(): void
@@ -81,6 +76,23 @@ class ConsecutiveTest extends TestCase
         } catch (ExpectationFailedException) {
             $assertionFailed = true;
         }
+        static::assertTrue($assertionFailed);
+    }
+
+    public function testConsecutiveUnevenArgumentsAssertion(): void
+    {
+        $callbacks = consecutive([123], [456, 'Watson']);
+        $secondArgumentCallback  = $callbacks[1];
+
+        $secondArgumentCallback->evaluate('Anything');
+
+        try {
+            $secondArgumentCallback->evaluate('Moriarty');
+            $assertionFailed = false;
+        } catch (ExpectationFailedException) {
+            $assertionFailed = true;
+        }
+
         static::assertTrue($assertionFailed);
     }
 }
