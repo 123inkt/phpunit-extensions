@@ -22,7 +22,7 @@ class ConsecutiveTest extends TestCase
     public function testConsecutiveSingle(): void
     {
         $mock = $this->createMock(MockInterface::class);
-        $mock->expects($this->exactly(2))
+        $mock->expects(static::exactly(2))
             ->method('myMethodA')
             ->with(...consecutive([123], [456]));
 
@@ -34,7 +34,7 @@ class ConsecutiveTest extends TestCase
     public function testConsecutiveDoubleArguments(): void
     {
         $mock = $this->createMock(MockInterface::class);
-        $mock->expects($this->exactly(2))
+        $mock->expects(static::exactly(2))
             ->method('myMethodB')
             ->with(...consecutive([123, 'Sherlock'], [456, 'Watson']));
 
@@ -46,7 +46,7 @@ class ConsecutiveTest extends TestCase
     public function testConsecutiveUnevenArguments(): void
     {
         $mock = $this->createMock(MockInterface::class);
-        $mock->expects($this->exactly(3))
+        $mock->expects(static::exactly(3))
             ->method('myMethodB')
             ->with(...consecutive([123], [456, 'Watson'], [111]));
 
