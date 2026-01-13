@@ -41,10 +41,11 @@ if (function_exists('\DR\PHPUnitExtensions\Mock\consecutive') === false) {
             }
         }
 
+        $invocationCount = count($expectedArgumentList);
         $callbacks = [];
         /** @var array<int, mixed> $arguments */
         foreach ($argumentsByIndex as $arguments) {
-            for ($i = 0; $i < $maxArguments; $i++) {
+            for ($i = 0; $i < $invocationCount; $i++) {
                 if (isset($arguments[$i]) === false) {
                     $arguments[$i] = new IsAnything();
                 }
