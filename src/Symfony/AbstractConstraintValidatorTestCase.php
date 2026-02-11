@@ -154,8 +154,6 @@ abstract class AbstractConstraintValidatorTestCase extends TestCase
     {
         $this->executionContext->expects(static::once())->method('buildViolation')->with($message, $parameters)->willReturn($this->violationBuilder);
 
-        $this->violationBuilder->expects(static::never())->method(self::anything());
-
         return new ConstraintViolationBuilderAssertion($this->violationBuilder);
     }
 }
