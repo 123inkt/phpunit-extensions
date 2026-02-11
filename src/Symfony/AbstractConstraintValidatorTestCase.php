@@ -83,6 +83,7 @@ abstract class AbstractConstraintValidatorTestCase extends TestCase
 
         $this->expectException(UnexpectedTypeException::class);
         $this->validator->validate($value, $this->createMock(Constraint::class));
+
     }
 
     protected function expectNoViolations(): void
