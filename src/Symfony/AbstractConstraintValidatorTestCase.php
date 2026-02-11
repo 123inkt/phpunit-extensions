@@ -81,16 +81,16 @@ abstract class AbstractConstraintValidatorTestCase extends TestCase
         $this->expectException(UnexpectedTypeException::class);
         $this->validator->validate($value, $this->createMock(Constraint::class));
 
-        $this->executionContext->expects($this->never())->method(self::anything());
-        $this->violationBuilder->expects($this->never())->method(self::anything());
+        $this->executionContext->expects(static::never())->method(self::anything());
+        $this->violationBuilder->expects(static::never())->method(self::anything());
     }
 
     protected function expectNoViolations(): void
     {
-        $this->executionContext->expects($this->never())->method('buildViolation');
-        $this->executionContext->expects($this->never())->method('addViolation');
+        $this->executionContext->expects(static::never())->method('buildViolation');
+        $this->executionContext->expects(static::never())->method('addViolation');
 
-        $this->violationBuilder->expects($this->never())->method(self::anything());
+        $this->violationBuilder->expects(static::never())->method(self::anything());
     }
 
     /**
@@ -101,9 +101,9 @@ abstract class AbstractConstraintValidatorTestCase extends TestCase
      */
     protected function expectViolation(string $message, array $parameters = []): void
     {
-        $this->executionContext->expects($this->once())->method('addViolation')->with($message, $parameters);
+        $this->executionContext->expects(static::once())->method('addViolation')->with($message, $parameters);
 
-        $this->violationBuilder->expects($this->never())->method(self::anything());
+        $this->violationBuilder->expects(static::never())->method(self::anything());
     }
 
     /**
@@ -120,14 +120,14 @@ abstract class AbstractConstraintValidatorTestCase extends TestCase
         ?string $atPath = null,
         mixed $invalidValue = self::IGNORE_INVALID_VALUE
     ): void {
-        $this->executionContext->expects($this->once())->method('buildViolation')->with($message, $parameters)->willReturn($this->violationBuilder);
+        $this->executionContext->expects(static::once())->method('buildViolation')->with($message, $parameters)->willReturn($this->violationBuilder);
         if ($atPath !== null) {
-            $this->violationBuilder->expects($this->once())->method('atPath')->with($atPath)->willReturnSelf();
+            $this->violationBuilder->expects(static::once())->method('atPath')->with($atPath)->willReturnSelf();
         }
         if ($invalidValue !== self::IGNORE_INVALID_VALUE) {
-            $this->violationBuilder->expects($this->once())->method('setInvalidValue')->with($invalidValue)->willReturnSelf();
+            $this->violationBuilder->expects(static::once())->method('setInvalidValue')->with($invalidValue)->willReturnSelf();
         }
-        $this->violationBuilder->expects($this->once())->method('addViolation');
+        $this->violationBuilder->expects(static::once())->method('addViolation');
     }
 
     /**
@@ -152,9 +152,9 @@ abstract class AbstractConstraintValidatorTestCase extends TestCase
      */
     protected function expectBuildViolation(string $message, array $parameters = []): ConstraintViolationBuilderAssertion
     {
-        $this->executionContext->expects($this->once())->method('buildViolation')->with($message, $parameters)->willReturn($this->violationBuilder);
+        $this->executionContext->expects(static::once())->method('buildViolation')->with($message, $parameters)->willReturn($this->violationBuilder);
 
-        $this->violationBuilder->expects($this->never())->method(self::anything());
+        $this->violationBuilder->expects(static::never())->method(self::anything());
 
         return new ConstraintViolationBuilderAssertion($this->violationBuilder);
     }
