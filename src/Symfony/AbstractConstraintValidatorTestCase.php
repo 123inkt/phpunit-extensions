@@ -78,11 +78,12 @@ abstract class AbstractConstraintValidatorTestCase extends TestCase
      */
     protected function assertHandlesIncorrectConstraintType(mixed $value = null): void
     {
+        $this->executionContext->expects(static::never())->method($this->anything());
+        $this->violationBuilder->expects(static::never())->method($this->anything());
+
         $this->expectException(UnexpectedTypeException::class);
         $this->validator->validate($value, $this->createMock(Constraint::class));
 
-        $this->executionContext->expects(static::never())->method(self::anything());
-        $this->violationBuilder->expects(static::never())->method(self::anything());
     }
 
     protected function expectNoViolations(): void
@@ -90,7 +91,7 @@ abstract class AbstractConstraintValidatorTestCase extends TestCase
         $this->executionContext->expects(static::never())->method('buildViolation');
         $this->executionContext->expects(static::never())->method('addViolation');
 
-        $this->violationBuilder->expects(static::never())->method(self::anything());
+        $this->violationBuilder->expects(static::never())->method($this->anything());
     }
 
     /**
@@ -103,7 +104,7 @@ abstract class AbstractConstraintValidatorTestCase extends TestCase
     {
         $this->executionContext->expects(static::once())->method('addViolation')->with($message, $parameters);
 
-        $this->violationBuilder->expects(static::never())->method(self::anything());
+        $this->violationBuilder->expects(static::never())->method($this->anything());
     }
 
     /**
