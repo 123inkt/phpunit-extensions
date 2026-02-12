@@ -82,7 +82,7 @@ abstract class AbstractConstraintValidatorTestCase extends TestCase
         $this->violationBuilder->expects(self::never())->method(self::anything());
 
         $this->expectException(UnexpectedTypeException::class);
-        $this->validator->validate($value, $this->createMock(Constraint::class));
+        $this->validator->validate($value, static::createStub(Constraint::class));
     }
 
     protected function expectNoViolations(): void
