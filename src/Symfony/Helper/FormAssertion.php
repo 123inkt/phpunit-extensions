@@ -6,7 +6,7 @@ namespace DR\PHPUnitExtensions\Symfony\Helper;
 
 use PHPUnit\Framework\MockObject\Generator\Generator as MockGenerator;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Runner\Version;
 use RuntimeException;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormError;
@@ -59,8 +59,9 @@ class FormAssertion
                         // @codeCoverageIgnoreEnd
                     }
 
-                    $stub = (new MockGenerator())
-                        ->testDouble(
+                    $generator = new MockGenerator();
+                    if (Version::majorVersionNumber() === 10) {
+                        $stub = $generator->testDouble(
                             FormInterface::class,
                             true,
                             callOriginalConstructor:  false,
@@ -68,6 +69,9 @@ class FormAssertion
                             cloneArguments:           false,
                             allowMockingUnknownTypes: false,
                         );
+                    } else {
+                        $stub = $generator->testDouble(FormInterface::class, true, callOriginalConstructor: false, callOriginalClone: false);
+                    }
                     $stub->method('getData')->willReturn($keyValueData[$key]);
 
                     return $stub;
