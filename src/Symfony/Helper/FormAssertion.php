@@ -69,6 +69,16 @@ class FormAssertion
                             cloneArguments:           false,
                             allowMockingUnknownTypes: false,
                         );
+                    } elseif (Version::majorVersionNumber() === 11) {
+                        $stub = $generator->testDouble(
+                            FormInterface::class,
+                            true,
+                            false,
+                            callOriginalConstructor: false,
+                            callOriginalClone: false,
+                            cloneArguments: false,
+                            allowMockingUnknownTypes: false,
+                        );
                     } else {
                         $stub = $generator->testDouble(FormInterface::class, false, callOriginalConstructor: false, callOriginalClone: false);
                     }
