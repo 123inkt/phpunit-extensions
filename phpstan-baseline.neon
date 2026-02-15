@@ -19,6 +19,12 @@ parameters:
 			path: src/Symfony/Helper/FormAssertion.php
 
 		-
+			message: '#^Method PHPUnit\\Framework\\MockObject\\Generator\\Generator\:\:testDouble\(\) invoked with named argument \$allowMockingUnknownTypes, but it''s not allowed because of @no\-named\-arguments\.$#'
+			identifier: argument.named
+			count: 2
+			path: src/Symfony/Helper/FormAssertion.php
+
+		-
 			message: '#^Method PHPUnit\\Framework\\MockObject\\Generator\\Generator\:\:testDouble\(\) invoked with named argument \$callOriginalClone, but it''s not allowed because of @no\-named\-arguments\.$#'
 			identifier: argument.named
 			count: 3
@@ -31,19 +37,13 @@ parameters:
 			path: src/Symfony/Helper/FormAssertion.php
 
 		-
-			message: '#^Parameter \#3 \$methods of method PHPUnit\\Framework\\MockObject\\Generator\\Generator\:\:testDouble\(\) expects list\<non\-empty\-string\>\|null, false given\.$#'
+			message: '#^Method PHPUnit\\Framework\\MockObject\\Generator\\Generator\:\:testDouble\(\) invoked with named argument \$cloneArguments, but it''s not allowed because of @no\-named\-arguments\.$#'
+			identifier: argument.named
+			count: 2
+			path: src/Symfony/Helper/FormAssertion.php
+
+		-
+			message: '#^Parameter \#3 \$methods of method PHPUnit\\Framework\\MockObject\\Generator\\Generator\:\:testDouble\(\) expects array\|null, false given\.$#'
 			identifier: argument.type
 			count: 1
-			path: src/Symfony/Helper/FormAssertion.php
-
-		-
-			message: '#^Unknown parameter \$allowMockingUnknownTypes in call to method PHPUnit\\Framework\\MockObject\\Generator\\Generator\:\:testDouble\(\)\.$#'
-			identifier: argument.unknown
-			count: 2
-			path: src/Symfony/Helper/FormAssertion.php
-
-		-
-			message: '#^Unknown parameter \$cloneArguments in call to method PHPUnit\\Framework\\MockObject\\Generator\\Generator\:\:testDouble\(\)\.$#'
-			identifier: argument.unknown
-			count: 2
 			path: src/Symfony/Helper/FormAssertion.php
