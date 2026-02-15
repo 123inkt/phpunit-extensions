@@ -59,6 +59,7 @@ class FormAssertion
                         // @codeCoverageIgnoreEnd
                     }
 
+                    // @codeCoverageIgnoreStart
                     $generator = new MockGenerator();
                     if (Version::majorVersionNumber() === 10) {
                         $stub = $generator->testDouble(
@@ -82,6 +83,7 @@ class FormAssertion
                     } else {
                         $stub = $generator->testDouble(FormInterface::class, false, callOriginalConstructor: false, callOriginalClone: false);
                     }
+                    // @codeCoverageIgnoreEnd
                     $stub->method('getData')->willReturn($keyValueData[$key]);
 
                     return $stub;
