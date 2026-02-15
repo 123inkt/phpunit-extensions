@@ -70,7 +70,7 @@ class FormAssertion
                             allowMockingUnknownTypes: false,
                         );
                     } else {
-                        $stub = $generator->testDouble(FormInterface::class, true, callOriginalConstructor: false, callOriginalClone: false);
+                        $stub = $generator->testDouble(FormInterface::class, false, callOriginalConstructor: false, callOriginalClone: false);
                     }
                     $stub->method('getData')->willReturn($keyValueData[$key]);
 
