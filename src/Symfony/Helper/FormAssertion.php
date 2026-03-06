@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace DR\PHPUnitExtensions\Symfony\Helper;
 
-use PHPUnit\Framework\MockObject\MockBuilder;
+use PHPUnit\Framework\MockObject\Generator\Generator as MockGenerator;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Runner\Version;
 use RuntimeException;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormError;
@@ -21,10 +21,9 @@ class FormAssertion
 {
     /**
      * @internal Instance should not be made directly, use AbstractControllerTestCase::expectCreateForm
-     *
-     * @see AbstractControllerTestCase::expectCreateForm
+     * @see      AbstractControllerTestCase::expectCreateForm
      */
-    public function __construct(public readonly FormInterface&MockObject $form, private readonly TestCase $testCase)
+    public function __construct(public readonly FormInterface&MockObject $form)
     {
     }
 
@@ -60,10 +59,34 @@ class FormAssertion
                         // @codeCoverageIgnoreEnd
                     }
 
-                    $mock = (new MockBuilder($this->testCase, FormInterface::class))->getMock();
-                    $mock->method('getData')->willReturn($keyValueData[$key]);
+                    // @codeCoverageIgnoreStart
+                    $generator = new MockGenerator();
+                    if (Version::majorVersionNumber() === 10) {
+                        $stub = $generator->testDouble(
+                            FormInterface::class,
+                            true,
+                            callOriginalConstructor:  false,
+                            callOriginalClone:        false,
+                            cloneArguments:           false,
+                            allowMockingUnknownTypes: false,
+                        );
+                    } elseif (Version::majorVersionNumber() === 11) {
+                        $stub = $generator->testDouble(
+                            FormInterface::class,
+                            true,
+                            false,
+                            callOriginalConstructor: false,
+                            callOriginalClone: false,
+                            cloneArguments: false,
+                            allowMockingUnknownTypes: false,
+                        );
+                    } else {
+                        $stub = $generator->testDouble(FormInterface::class, false, callOriginalConstructor: false, callOriginalClone: false);
+                    }
+                    // @codeCoverageIgnoreEnd
+                    $stub->method('getData')->willReturn($keyValueData[$key]);
 
-                    return $mock;
+                    return $stub;
                 }
             );
 
