@@ -59,6 +59,7 @@ jobs:
           php-version: 8.4
           extensions: imagick
           coverage: pcov
+          ini-values: zend.assertions=1
 
       - name: Install ghostscript for PDF tests
         run: sudo apt-get install -y ghostscript
