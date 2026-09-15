@@ -32,7 +32,7 @@
         "symfony/twig-bundle": "^6.0||^7.0||^8.0",
         "symfony/validator": "^6.0||^7.0||^8.0",
         "tecnickcom/tc-lib-pdf": "^8.73.6",
-        "tecnickcom/tcpdf": "^6.0"
+        "tecnickcom/tcpdf": "^7.0"
     },
     "scripts": {
         "baseline": ["@baseline:phpstan", "@baseline:phpmd"],
