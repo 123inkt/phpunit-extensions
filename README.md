@@ -1,4 +1,4 @@
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-8892BF)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF)](https://php.net/)
 ![Run tests](https://github.com/123inkt/phpunit-extensions/actions/workflows/test.yml/badge.svg)
 
 ## PHPUnit extensions
@@ -136,11 +136,11 @@ The `ImageTestTrait` provides methods to compare two images by `binary string`, 
 - `self::assertNotSameImage(string|SplFileInfo|resource, string|SplFileInfo|resource)`
 
 ### PdfTestTrait
-The `PdfTestTrait` provides methods to compare a `TCPDF` object against an image of `binary string`, `SplFileInfo`, `resource` or another `TCPDF` file. (Requires `Imagick` with `ghostscript` and `TCPDF`)
+The `PdfTestTrait` provides methods to compare a `TCPDF` or `Com\Tecnick\Pdf\Tcpdf` object against an image of `binary string`, `SplFileInfo`, `resource` or another PDF file. (Requires `Imagick` with `ghostscript` and the PDF engine used by the test)
 
 **Methods**
-- `self::assertSamePdf(string|SplFileInfo|resource|TCPDF, TCPDF)`
-- `self::assertNotSamePdf(string|SplFileInfo|resource|TCPDF, TCPDF)`.
+- `self::assertSamePdf(string|SplFileInfo|resource|TCPDF|Com\Tecnick\Pdf\Tcpdf, TCPDF|Com\Tecnick\Pdf\Tcpdf)`
+- `self::assertNotSamePdf(string|SplFileInfo|resource|TCPDF|Com\Tecnick\Pdf\Tcpdf, TCPDF|Com\Tecnick\Pdf\Tcpdf)`.
 
 **For both ImageTestTrait and PdfTestTrait:**
 

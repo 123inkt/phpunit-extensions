@@ -17,16 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: [ '8.1', '8.2', '8.3', '8.4', '8.5' ]
+        php-versions: [ '8.3', '8.4', '8.5' ]
         symfony: [ '^6.0', '^7.0', '^8.0' ]
         composer-flags: [ '', '--prefer-lowest' ]
         exclude:
-          - php-versions: 8.1
-            symfony: '^7.0'
-          - php-versions: 8.1
-            symfony: '^8.0'
-          - php-versions: 8.2
-            symfony: '^8.0'
           - php-versions: 8.3
             symfony: '^8.0'
     steps:
@@ -65,6 +59,7 @@ jobs:
           php-version: 8.4
           extensions: imagick
           coverage: pcov
+          ini-values: zend.assertions=1
 
       - name: Install ghostscript for PDF tests
         run: sudo apt-get install -y ghostscript
@@ -89,7 +84,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.3
           coverage: none
           tools: phpmd
 
